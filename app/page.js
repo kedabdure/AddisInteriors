@@ -4,6 +4,7 @@ import CatalogueSection from "@/components/CatalogueSection";
 import CompanySection from "@/components/CompanySection";
 import ContactSection from "@/components/ContactSection";
 import HeroSection from "@/components/HeroSection";
+import ThreeDViewer from "@/components/panoramic/ThreeDViewer";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <CatalogueSection />
       <CatalogSwiperSection />
       <ContactSection />
+      <ThreeDViewer />
     </>
   );
 }
