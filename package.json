@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.0.2",
+    "@mui/material": "^6.0.2",
     "@react-three/drei": "^9.112.0",
     "@react-three/fiber": "^8.17.7",
     "eslint": "8.48.0",
