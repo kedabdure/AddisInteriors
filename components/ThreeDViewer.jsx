@@ -151,19 +151,24 @@ const ThreeDViewer = () => {
   }, [currentImageIndex]);
 
   const handlePrevImage = () => {
+    if (images.length === 0) return;
+
     setCurrentImageIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : images.length - 1
+      prevIndex > 0 ? prevIndex - 1 : prevIndex
     );
   };
 
   const handleNextImage = () => {
+    if (images.length === 0) return;
+
     setCurrentImageIndex((prevIndex) =>
-      prevIndex < images.length - 1 ? prevIndex + 1 : 0
+      prevIndex < images.length - 1 ? prevIndex + 1 : prevIndex
     );
   };
 
+
   const handlePaginationChange = (event, value) => {
-    setCurrentImageIndex(value - 1); // MUI Pagination is 1-based index
+    setCurrentImageIndex(value - 1);
   };
 
   return (
@@ -253,10 +258,13 @@ const ThreeDViewer = () => {
           >
             <IconButton
               onClick={handlePrevImage}
+              disabled={currentImageIndex === 0}
               sx={{
-                color: "grey",  // Reversed to black
-                backgroundColor: currentImageIndex === 0 ? "rgba(255, 255, 255, 0.99)" : "rgba(255, 255, 255, 0.7)",  // Reversed to white tones
-                "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.3)" },
+                color: "grey",
+                backgroundColor: currentImageIndex === 0 ? "rgba(255, 255, 255, 0.5)" : "rgba(255, 255, 255, 0.8)",
+                "&:hover": {
+                  backgroundColor: currentImageIndex !== 0 ? "rgba(255, 255, 255, 0.6)" : "rgba(255, 255, 255, 0.5)",
+                },
                 position: "absolute",
                 left: 20,
                 transform: "translateY(-50%)",
@@ -271,12 +279,16 @@ const ThreeDViewer = () => {
                 }}
               />
             </IconButton>
+
             <IconButton
               onClick={handleNextImage}
+              disabled={currentImageIndex === images.length - 1}
               sx={{
-                color: "grey",  // Reversed to black
-                backgroundColor: currentImageIndex === 0 ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.7)",  // Reversed to white tones
-                "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.3)" },
+                color: "grey",
+                backgroundColor: currentImageIndex === images.length - 1 ? "rgba(255, 255, 255, 0.5)" : "rgba(255, 255, 255, 0.8)",
+                "&:hover": {
+                  backgroundColor: currentImageIndex !== images.length - 1 ? "rgba(255, 255, 255, 0.6)" : "rgba(255, 255, 255, 0.5)",
+                },
                 position: "absolute",
                 right: 20,
                 transform: "translateY(-50%)",
@@ -291,6 +303,7 @@ const ThreeDViewer = () => {
                 }}
               />
             </IconButton>
+
           </Box>
 
           {/* Pagination */}
@@ -332,10 +345,10 @@ const ThreeDViewer = () => {
                   },
                 },
                 '& .Mui-selected': {
-                  backgroundColor: 'limegreen',
+                  backgroundColor: 'black',
                   color: 'transparent',
                   '&:hover': {
-                    backgroundColor: 'limegreen',
+                    backgroundColor: 'black',
                   },
                 },
               }}
