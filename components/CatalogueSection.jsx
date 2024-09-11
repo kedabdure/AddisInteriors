@@ -7,7 +7,7 @@ export default function CatalogueSection() {
         {
             id: "01",
             catagory: "BEDROOM SETUP",
-            title: "Cossy Bedroom Setup",
+            title: "Bedroom Setup",
             image: "/image/badroom.jpg",
             description: "family drowing room with a clean and comfortable design for your family.",
         },
@@ -51,13 +51,13 @@ export default function CatalogueSection() {
                         <a className="inline-flex items-center font-medium" href="">See Details <TbArrowNarrowRight className="ml-2 text-xl " /></a>
                     </div>
 
-                    <div className="inset-0 flex-col items-center justify-end hidden gap-32 pb-16 text-xl transition duration-300 ease-in-out border-b-2 md:flex md:absolute group-hover:translate-y-full md:border-b-0 bg-zinc-100">
+                    {/* <div className="inset-0 flex-col items-center justify-end hidden gap-32 pb-16 text-xl transition duration-300 ease-in-out border-b-2 md:flex md:absolute group-hover:translate-y-full md:border-b-0 bg-zinc-100">
                         <p className="tracking-wider -rotate-90 ">{item.catagory} </p>
                         <span className="">
                             {item.id}
                         </span>
 
-                    </div>
+                    </div> */}
                 </div>
             ))}
         </div>

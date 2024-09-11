@@ -12,7 +12,6 @@ import Image from 'next/image';
 import panoramic1 from "../public/360/panoramic1.jpg";
 import panoramic2 from "../public/360/panoramic2.jpeg";
 import Icon360 from "../public/360/Icon360.svg";
-import { fontGrid } from '@mui/material/styles/cssUtils';
 
 // List of images
 const images = [panoramic1, panoramic2];
@@ -68,20 +67,15 @@ const ThreeDViewer = () => {
 
       // Orbit controls
       const controls = new OrbitControls(camera, renderer.domElement);
-
       controls.enableZoom = true;
       controls.zoomSpeed = 0.5;
       controls.minDistance = 100;
       controls.maxDistance = 250;
-
       controls.enablePan = true;
       controls.autoRotate = true;
-
       controls.autoRotateSpeed = 1;
-
       controls.enableDamping = true;
       controls.dampingFactor = 0.1;
-
       controls.rotateSpeed = 0.3;
       controls.panSpeed = 0.4;
       controlsRef.current = controls;
@@ -102,8 +96,7 @@ const ThreeDViewer = () => {
       // Handle window resize
       const onWindowResize = () => {
         camera.aspect =
-          imageContainerRef.current.clientWidth /
-          imageContainerRef.current.clientHeight;
+          imageContainerRef.current.clientWidth / imageContainerRef.current.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(
           imageContainerRef.current.clientWidth,
@@ -165,7 +158,7 @@ const ThreeDViewer = () => {
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex < images.length ? prevIndex + 1 : 0
+      prevIndex < images.length - 1 ? prevIndex + 1 : 0
     );
   };
 
@@ -177,7 +170,7 @@ const ThreeDViewer = () => {
           mt: 5,
           mb: 10,
           height: "auto",
-          width: { xs: '85%', md: '75%%' },
+          width: { xs: '85%', md: '75%' },
         }}
       >
         {/* Title and Icon */}
@@ -186,7 +179,7 @@ const ThreeDViewer = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            my: 4,
+            my: 1,
             textAlign: 'center',
           }}
         >
@@ -195,7 +188,7 @@ const ThreeDViewer = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 3,
+              gap: 1,
               flexWrap: 'wrap',
             }}
           >
@@ -211,15 +204,14 @@ const ThreeDViewer = () => {
               <Image
                 src={Icon360}
                 width="100%"
-                height="100%"
+                height="auto"
                 alt="Icon360"
-                objectFit="cover"
               />
             </Box>
             <Typography
               sx={{
                 fontWeight: 'bold',
-                fontSize: { xs: '2rem', sm: '2.5', md: '3rem', lg: '3.5rem' },
+                fontSize: { xs: '2.2rem', sm: '2.5rem', md: '3rem', lg: '3.5rem' },
                 color: '#333',
               }}
             >
@@ -229,7 +221,7 @@ const ThreeDViewer = () => {
           <Typography
             sx={{
               color: '#555',
-              fontSize: { xs: '1', sm: '1.2', md: '1.5rem' },
+              fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
               mb: 5,
               maxWidth: '90%',
             }}
@@ -259,11 +251,13 @@ const ThreeDViewer = () => {
               onClick={handlePrevImage}
               sx={{
                 color: "white",
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                backgroundColor: currentImageIndex === 0 ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.5)",
                 "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.7)" },
                 position: "absolute",
                 left: 20,
                 transform: "translateY(-50%)",
+                opacity: currentImageIndex === 0 ? 0.5 : 1,
+                cursor: currentImageIndex === 0 ? "default" : "pointer",
               }}
             >
               <ArrowLeftIcon
@@ -277,11 +271,13 @@ const ThreeDViewer = () => {
               onClick={handleNextImage}
               sx={{
                 color: "white",
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                backgroundColor: currentImageIndex === images.length - 1 ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.5)",
                 "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.7)" },
                 position: "absolute",
                 right: 20,
                 transform: "translateY(-50%)",
+                opacity: currentImageIndex === images.length - 1 ? 0.5 : 1,
+                cursor: currentImageIndex === images.length - 1 ? "default" : "pointer",
               }}
             >
               <ArrowRightIcon
@@ -294,7 +290,6 @@ const ThreeDViewer = () => {
           </Box>
         </Box>
       </Box>
-
     </>
   );
 };
