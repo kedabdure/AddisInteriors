@@ -11,11 +11,27 @@ export default function Header() {
   const pathname = usePathname();
   const [showMainNavigation, setShowMainNavigation] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(0); // Initialize with 0 or a default value
 
   const isHomePage = pathname === "/";
 
   useEffect(() => {
-    if (isHomePage) {
+    // Check if running on the client
+    if (typeof window !== "undefined") {
+      // Set the initial screen width
+      setScreenWidth(window.innerWidth);
+
+      // Update screen width on resize
+      const handleResize = () => setScreenWidth(window.innerWidth);
+
+      window.addEventListener("resize", handleResize);
+
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isHomePage && screenWidth >= 1024) { // Only run scroll effect on large screens
       const handleScroll = () => {
         const heroSectionHeight = 80; // Adjust as needed
         const scrollPosition = window.scrollY;
@@ -30,7 +46,7 @@ export default function Header() {
     } else {
       setShowMainNavigation(true);
     }
-  }, [isHomePage]);
+  }, [isHomePage, screenWidth]);
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
