@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography, Pagination } from '@mui/material';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import Image from 'next/image';
@@ -162,6 +162,10 @@ const ThreeDViewer = () => {
     );
   };
 
+  const handlePaginationChange = (event, value) => {
+    setCurrentImageIndex(value - 1); // MUI Pagination is 1-based index
+  };
+
   return (
     <>
       <Box
@@ -250,9 +254,9 @@ const ThreeDViewer = () => {
             <IconButton
               onClick={handlePrevImage}
               sx={{
-                color: "white",
-                backgroundColor: currentImageIndex === 0 ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.5)",
-                "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.7)" },
+                color: "grey",  // Reversed to black
+                backgroundColor: currentImageIndex === 0 ? "rgba(255, 255, 255, 0.99)" : "rgba(255, 255, 255, 0.7)",  // Reversed to white tones
+                "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.3)" },
                 position: "absolute",
                 left: 20,
                 transform: "translateY(-50%)",
@@ -262,17 +266,17 @@ const ThreeDViewer = () => {
             >
               <ArrowLeftIcon
                 sx={{
-                  width: { xs: 25, sm: 30, md: 50, lg: 60 },
-                  height: { xs: 25, sm: 30, md: 50, lg: 60 },
+                  width: { xs: 25, sm: 30, md: 50, lg: 55 },
+                  height: { xs: 25, sm: 30, md: 50, lg: 55 },
                 }}
               />
             </IconButton>
             <IconButton
               onClick={handleNextImage}
               sx={{
-                color: "white",
-                backgroundColor: currentImageIndex === images.length - 1 ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.5)",
-                "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.7)" },
+                color: "grey",  // Reversed to black
+                backgroundColor: currentImageIndex === 0 ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.7)",  // Reversed to white tones
+                "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.3)" },
                 position: "absolute",
                 right: 20,
                 transform: "translateY(-50%)",
@@ -282,11 +286,60 @@ const ThreeDViewer = () => {
             >
               <ArrowRightIcon
                 sx={{
-                  width: { xs: 25, sm: 30, md: 50, lg: 60 },
-                  height: { xs: 25, sm: 30, md: 50, lg: 60 },
+                  width: { xs: 25, sm: 30, md: 50, lg: 55 },
+                  height: { xs: 25, sm: 30, md: 50, lg: 55 },
                 }}
               />
             </IconButton>
+          </Box>
+
+          {/* Pagination */}
+          <Box
+            sx={{
+              position: 'absolute',
+              bottom: 30,
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Pagination
+              count={images.length}
+              page={currentImageIndex + 1}
+              onChange={handlePaginationChange}
+              shape="rounded"
+              size="large"
+              variant="outlined"
+              siblingCount={0}
+              boundaryCount={0}
+              hidePrevButton
+              hideNextButton
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  borderRadius: '50%',
+                  width: 22,
+                  height: 22,
+                  minWidth: 20,
+                  padding: 0,
+                  margin: '0 5px',
+                  backgroundColor: 'white',
+                  border: 'none',
+                  color: 'transparent',
+                  transition: 'background-color 0.3s',
+                  '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                  },
+                },
+                '& .Mui-selected': {
+                  backgroundColor: 'limegreen',
+                  color: 'transparent',
+                  '&:hover': {
+                    backgroundColor: 'limegreen',
+                  },
+                },
+              }}
+            />
           </Box>
         </Box>
       </Box>
