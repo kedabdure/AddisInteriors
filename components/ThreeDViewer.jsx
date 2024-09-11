@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import Image from 'next/image';
@@ -12,6 +12,7 @@ import Image from 'next/image';
 import panoramic1 from "../public/360/panoramic1.jpg";
 import panoramic2 from "../public/360/panoramic2.jpeg";
 import Icon360 from "../public/360/Icon360.svg";
+import { fontGrid } from '@mui/material/styles/cssUtils';
 
 // List of images
 const images = [panoramic1, panoramic2];
@@ -67,12 +68,22 @@ const ThreeDViewer = () => {
 
       // Orbit controls
       const controls = new OrbitControls(camera, renderer.domElement);
-      controls.enableZoom = false;
+
+      controls.enableZoom = true;
+      controls.zoomSpeed = 0.5;
+      controls.minDistance = 100;
+      controls.maxDistance = 250;
+
       controls.enablePan = true;
       controls.autoRotate = true;
-      controls.autoRotateSpeed = 0.6;
+
+      controls.autoRotateSpeed = 1;
+
       controls.enableDamping = true;
       controls.dampingFactor = 0.1;
+
+      controls.rotateSpeed = 0.3;
+      controls.panSpeed = 0.4;
       controlsRef.current = controls;
 
       // Animation loop
@@ -163,25 +174,76 @@ const ThreeDViewer = () => {
       <Box
         className="flex flex-col items-center justify-center mx-auto relative overflow-hidden"
         sx={{
-          mt: 8,
+          mt: 5,
           mb: 10,
-          height: { xs: '110vh', md: '135vh' },
+          height: "auto",
           width: { xs: '85%', md: '75%%' },
         }}
       >
         {/* Title and Icon */}
-        <Box className="flex flex-col items-center my-4 text-center">
-          <Box className="flex items-center justify-center gap-6">
-            <Image src={Icon360} alt="Icon360" width={110} height={110} />
-            <h1 className="text-5xl text-gray-800">Panoramas</h1>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            my: 4,
+            textAlign: 'center',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 3,
+              flexWrap: 'wrap',
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: { xs: 80, sm: 100, md: 110 },
+                height: { xs: 80, sm: 100, md: 110 },
+              }}
+            >
+              <Image
+                src={Icon360}
+                width="100%"
+                height="100%"
+                alt="Icon360"
+                objectFit="cover"
+              />
+            </Box>
+            <Typography
+              sx={{
+                fontWeight: 'bold',
+                fontSize: { xs: '2rem', sm: '2.5', md: '3rem', lg: '3.5rem' },
+                color: '#333',
+              }}
+            >
+              Panoramas
+            </Typography>
           </Box>
-          <p className="text-gray-800 text-2xl mt-5 mb-6">
+          <Typography
+            sx={{
+              color: '#555',
+              fontSize: { xs: '1', sm: '1.2', md: '1.5rem' },
+              mb: 5,
+              maxWidth: '90%',
+            }}
+          >
             Experience complete immersion with breathtaking 360-degree panoramas.
-          </p>
+          </Typography>
         </Box>
 
         {/* Panorama box */}
-        <Box ref={imageContainerRef} className="relative w-full h-full">
+        <Box ref={imageContainerRef} className="relative w-full"
+          sx={{
+            height: { xs: '100vh', md: '115vh' }
+          }}
+        >
           {/* Navigation arrows */}
           <Box
             sx={{
@@ -206,8 +268,8 @@ const ThreeDViewer = () => {
             >
               <ArrowLeftIcon
                 sx={{
-                  width: { xs: 25, md: 40, lg: 60 },
-                  height: { xs: 25, md: 40, lg: 60 },
+                  width: { xs: 25, sm: 30, md: 50, lg: 60 },
+                  height: { xs: 25, sm: 30, md: 50, lg: 60 },
                 }}
               />
             </IconButton>
@@ -224,8 +286,8 @@ const ThreeDViewer = () => {
             >
               <ArrowRightIcon
                 sx={{
-                  width: { xs: 25, md: 40, lg: 60 },
-                  height: { xs: 25, md: 40, lg: 60 },
+                  width: { xs: 25, sm: 30, md: 50, lg: 60 },
+                  height: { xs: 25, sm: 30, md: 50, lg: 60 },
                 }}
               />
             </IconButton>

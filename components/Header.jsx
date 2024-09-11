@@ -5,47 +5,54 @@ import Image from "next/image";
 import logo from "../public/logo.png";
 import Navigation from "./Navigation";
 import { useEffect, useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function Header() {
   const pathname = usePathname();
-  const [isTransparent, setTransparent] = useState(true);
+  const [showMainNavigation, setShowMainNavigation] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const isHomePage = pathname === "/";
 
   useEffect(() => {
-    // Only attach scroll listener if on the homepage
     if (isHomePage) {
       const handleScroll = () => {
-        const heroSectionHeight = 600; // Adjust this to match your hero section's height
+        const heroSectionHeight = 80; // Adjust as needed
         const scrollPosition = window.scrollY;
-
-        // Toggle transparency based on scroll position
-        setTransparent(scrollPosition < heroSectionHeight);
+        setShowMainNavigation(scrollPosition > heroSectionHeight);
       };
 
       window.addEventListener("scroll", handleScroll);
 
-      // Cleanup on component unmount
       return () => {
         window.removeEventListener("scroll", handleScroll);
       };
     } else {
-      // For non-homepage paths, always set the header to not transparent
-      setTransparent(false);
+      setShowMainNavigation(true);
     }
   }, [isHomePage]);
 
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
   return (
     <header
-      className={`sticky top-0 z-10 transition-all duration-300 ${
-        isTransparent
-          ? "bg-transparent backdrop-blur-none"
-          : "bg-white bg-opacity-95 backdrop-blur-lg"
-      }`}
+      className={`fixed top-0 left-0 w-full z-20 transition-transform duration-500 ease-in-out bg-white ${showMainNavigation ? "translate-y-0 shadow-md" : "-translate-y-24"
+        }`}
+      style={{ backgroundColor: "white" }}
     >
       <div className="container mx-auto flex items-center justify-between py-5 px-4">
-        <Image src={logo} alt="logo" className="w-40 h-6" />
-        <Navigation />
+        {/* Logo */}
+        <Image src={logo} alt="logo" className="w-32 h-auto sm:w-40" />
+
+        {/* Hamburger Icon for Small Devices */}
+        <div className="lg:hidden flex items-center">
+          <button onClick={toggleSidebar} className="text-black">
+            <GiHamburgerMenu size={30} />
+          </button>
+        </div>
+
+        {/* Main Navigation */}
+        <Navigation showSidebar={sidebarOpen} toggleSidebar={toggleSidebar} />
       </div>
     </header>
   );
