@@ -22,7 +22,7 @@ const ThreeDViewer = () => {
   const sphereRef = useRef(null);
   const rendererRef = useRef(null);
   const controlsRef = useRef(null);
-  const fovRef = useRef(75); // Reference to store the current FOV value
+  const fovRef = useRef(75);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -132,13 +132,16 @@ const ThreeDViewer = () => {
       // Cleanup on component unmount
       return () => {
         window.removeEventListener("resize", onWindowResize);
-        imageContainerRef.current.removeEventListener("wheel", handleZoom);
-        imageContainerRef.current.removeEventListener("click", handleClick);
+        if (imageContainerRef.current) {
+          imageContainerRef.current.removeEventListener("wheel", handleZoom);
+          imageContainerRef.current.removeEventListener("click", handleClick);
+        }
         controls.dispose();
         renderer.dispose();
       };
     }
   }, [currentImageIndex]);
+
 
   // Update texture on image change
   useEffect(() => {
