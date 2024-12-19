@@ -56,9 +56,16 @@ export default function Header() {
         }`}
       style={{ backgroundColor: "white" }}
     >
-      <div className="container mx-auto flex items-center justify-between py-5 px-4">
+      <div className="container mx-auto flex items-center justify-between py-5 px-4 font-size-32 font-weight-bolder">
         {/* Logo */}
-        <Image src={logo} alt="logo" className="w-32 h-auto sm:w-40" />
+        <div class="relative text-4xl font-extrabold uppercase tracking-widest text-gray-800">
+          ABDURE
+
+          <span
+            class="absolute left-0 -bottom-1 w-full h-0.5 bg-gray-800 transition-all duration-300 ease-out transform hover:w-[120%] hover:left-[-10%]">
+          </span>
+        </div>
+
 
         {/* Hamburger Icon for Small Devices */}
         <div className="lg:hidden flex items-center">

@@ -125,7 +125,7 @@ const ThreeDViewer = () => {
         clearTimeout(controlsRef.current);
         controlsRef.current = setTimeout(() => {
           controls.autoRotate = true;
-        }, 5000); // Auto-rotate resumes after 5 seconds
+        }, 5000);
       };
       imageContainerRef.current.addEventListener("click", handleClick);
 

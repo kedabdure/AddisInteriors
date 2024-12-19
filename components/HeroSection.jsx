@@ -4,80 +4,121 @@ import Image from 'next/image';
 import Link from "next/link";
 import { TbArrowUpRight } from 'react-icons/tb';
 import { usePathname } from "next/navigation";
+import { Suspense } from 'react';
+
+import { Canvas } from '@react-three/fiber';
+import { Center, PerspectiveCamera, OrbitControls } from '@react-three/drei';
+
+import SofaModel from './SofaModel';
+import VentilatorModel from './VentilatorModel';
+import LampModel from './LampModel';
+import FlowerModel from './FlowerModel';
 
 const navItems = [
-  { href: "/", label: "HOME" },
-  { href: "/projects", label: "PROJECTS" },
-  { href: "/about", label: "ABOUT US" },
-  { href: "/gallery", label: "GALLERY" },
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/gallery", label: "Gallery" },
 ];
 
 export default function HeroSection() {
   const pathname = usePathname();
 
   return (
-    <div className="relative flex items-center justify-center h-screen bg-zinc-50">
-      {/* Background Image with Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('/image/hero.jpg')`,
-          filter: 'brightness(50%)',
-        }}
-      ></div>
-
-      {/* Navigation */}
-      <nav className="absolute top-10 left-0 right-0 items-center justify-between px-8 lg:px-32 transition-colors duration-300 hidden lg:flex">
-        <div className="flex gap-6">
+    <div className=" flex flex-col lg:flex-row items-center justify-between h-screen py-10 px-5 lg:px-20 bg-gradient-to-r from-gray-900 to-gray-800">
+      {/* Left Content: Navigation + Hero Text */}
+      <div className="relative w-full h-full flex flex-col lg:w-1/2 text-center lg:text-left">
+        {/* Navigation */}
+        <nav className="flex justify-center lg:justify-start gap-6 mb-20">
           {navItems.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
-              className={`relative px-2 py-1 transition-colors duration-300 hover:text-white ${pathname === href ? "font-semibold text-white" : "text-gray-300"
+              className={`relative px-2 py-1 text-[16px] transition-colors duration-300 hover:text-white ${pathname === href ? "font-semibold text-white" : "text-gray-400"
                 }`}
             >
               {label}
-              {/* Whitish bottom line on hover */}
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
             </Link>
           ))}
-        </div>
-        <Link
-          href="/contact"
-          className="flex items-center font-semibold text-gray-300 transition-colors duration-300 hover:text-white"
-        >
-          Contact Us <TbArrowUpRight className="w-5 h-5 ml-2" />
-        </Link>
-      </nav>
+        </nav>
 
-      {/* Content */}
-      <div className="relative z-10 text-center text-white px-6 md:px-12 py-16 lg:py-24">
-        <p className="text-gray-400 tracking-widest mb-8 md:mb-12">MSOSO</p>
-        <h1 className="text-3xl leading-tight mb-4 md:mb-6 lg:mb-8 md:text-5xl lg:text-6xl">
-          INTERIOR DESIGN EXPERTS
-        </h1>
-        <p className="text-gray-300 mb-12 md:mb-16 lg:mb-20 text-base md:text-lg lg:text-xl">
-          Discover exceptional interior design. <br />
-          Transform your home with our stylish and functional solutions.
-        </p>
+        {/* Hero Text */}
+        <div className="text-white">
+          <p className="text-gray-500 tracking-widest mb-4 lg:mb-6">MSOSO</p>
+          <h1 className="text-4xl font-bold leading-tight mb-4 lg:mb-6 lg:text-5xl">
+            INTERIOR DESIGN EXPERTS
+          </h1>
+          <p className="text-gray-400 mb-8 lg:mb-12 text-lg lg:text-xl">
+            Discover exceptional interior design. <br />
+            Transform your home with our stylish and functional solutions.
+          </p>
 
-        {/* Buttons */}
-        <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center">
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-6 py-3 font-medium bg-gray-950 text-white border border-transparent rounded-full shadow-md transition-colors duration-300 ease-in-out hover:bg-transparent hover:border-white hover:text-white"
-          >
-            Order Now
-            <TbArrowUpRight className="w-5 h-5 ml-2" />
-          </Link>
-          <Link
-            href="/projects"
-            className="inline-flex items-center px-6 py-3 font-medium text-gray-950 border border-gray-950 rounded-full shadow-md transition-colors duration-300 ease-in-out hover:bg-gray-950 hover:text-white"
-          >
-            Projects
-            <TbArrowUpRight className="w-5 h-5 ml-2" />
-          </Link>
+          {/* Buttons */}
+          <div className="flex flex-col gap-4 md:flex-row justify-center lg:justify-start">
+            <Link
+              href="/contact"
+              className="inline-flex items-center px-6 py-3 font-medium bg-gradient-to-r from-teal-500 to-blue-600 text-white border border-transparent rounded-full shadow-md transition-transform duration-300 ease-in-out hover:scale-105"
+            >
+              Order Now
+              <TbArrowUpRight className="w-5 h-5 ml-2" />
+            </Link>
+            <Link
+              href="/projects"
+              className="inline-flex items-center px-6 py-3 font-medium text-teal-500 border border-teal-500 rounded-full shadow-md transition-transform duration-300 ease-in-out hover:bg-teal-500 hover:text-white hover:scale-105"
+            >
+              Projects
+              <TbArrowUpRight className="w-5 h-5 ml-2" />
+            </Link>
+          </div>
         </div>
+      </div>
+
+      {/* Right Content: 3D Model */}
+      <div className="w-full lg:w-1/2 h-[400px] lg:h-full flex items-center justify-center">
+        <Canvas className="w-full h-full">
+          <ambientLight intensity={0.5} />
+          <directionalLight intensity={7} position={[10, 10, 10]} />
+          <directionalLight intensity={1} position={[-4, 1, -2]} />
+
+          {/* OrbitControls attached to the camera */}
+          <Suspense fallback={<p>Loading...</p>}>
+            <PerspectiveCamera makeDefault position={[0, 3, 25]} />
+            <Center>
+              <group>
+                {/* <OrbitControls /> */}
+                <SofaModel
+                  position={[0, -7, 0]}
+                  rotation={[0, -0.7, -0.1]}
+                  scale={7}
+                />
+              </group>
+            </Center>
+          </Suspense>
+
+          {/* VentilatorModel remains static and unaffected by OrbitControls */}
+          <group>
+            {/* <VentilatorModel
+              position={[0, 8, 0]}
+              rotation={[-0.1, 0, 0]}
+              scale={.07}
+            /> */}
+
+            <LampModel
+              position={[-4, 1, -2]}
+              rotation={[0, 0, 0]}
+              scale={5}
+              z={10000}
+              autoRotate
+            />
+
+            <FlowerModel
+              position={[5, -4.5, 8]}
+              rotation={[0, 0, 0]}
+              scale={3}
+            />
+          </group>
+        </Canvas>
       </div>
     </div>
   );

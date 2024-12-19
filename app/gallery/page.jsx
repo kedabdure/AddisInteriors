@@ -1,5 +1,6 @@
 import Image from 'next/image';
 
+
 export default function Gallery() {
   return (
     <div className="container py-10 grid grid-cols-2 md:grid-cols-4 gap-4">

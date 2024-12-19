@@ -5,7 +5,8 @@ import { Grid, Typography, Box, Container, TextField, Alert, Button, CircularPro
 import { MuiTelInput } from 'mui-tel-input';
 import Swal from 'sweetalert2';
 import emailjs from '@emailjs/browser';
-import handleSuccessAlert from './SwalSuccess';
+import { useRouter } from 'next/navigation';
+
 import './contact.css';
 
 const initialValues = {
@@ -21,6 +22,7 @@ const Contact = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const validate = (values) => {
     const errors = {};
@@ -99,42 +101,7 @@ const Contact = () => {
           icon: 'success',
           confirmButtonColor: '#fb8122',
           background: '#f7f7f7',
-          showConfirmButton: false, // Hide the default OK button
-          html: `
-    <div style="text-align: center;">
-      <h3>Thank you for reaching out! We will contact you soon.</h3>
-      <button id="go-back-home" style="
-        background-color: #fb8122; 
-        border: none; 
-        color: white; 
-        padding: 10px 20px; 
-        text-align: center; 
-        text-decoration: none; 
-        display: inline-block; 
-        font-size: 16px; 
-        margin: 10px 2px 4px 2px; 
-        cursor: pointer; 
-        border-radius: 4px;
-      ">Go to Home</button>
-    </div>
-  `,
-          onOpen: () => {
-            // Disable scrolling and interactions
-            document.body.style.overflow = 'hidden';
-            document.querySelector('html').style.overflow = 'hidden';
-
-            // Add event listener for button click
-            document.getElementById('go-back-home').addEventListener('click', () => {
-              window.location.href = '/'; // Redirect to home page
-            });
-          },
-          onClose: () => {
-            // Re-enable scrolling and interactions
-            document.body.style.overflow = '';
-            document.querySelector('html').style.overflow = '';
-          }
-        });
-
+        }).then((res) => { if (res.isConfirmed) router.push('/'); });
 
         console.log('Email successfully sent:', response);
       } catch (error) {

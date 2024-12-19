@@ -1,7 +1,5 @@
 import Image from "next/image";
 
-
-
 export default function Projects() {
     const projects = [
         {
@@ -42,8 +40,6 @@ export default function Projects() {
                             <p className="py-4 ">{project.description}</p>
                         </div>
                     </div>
-
-
                 ))}
             </div>
         </div>
