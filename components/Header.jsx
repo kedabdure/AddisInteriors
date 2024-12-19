@@ -56,14 +56,14 @@ export default function Header() {
         }`}
       style={{ backgroundColor: "white" }}
     >
-      <div className="container mx-auto flex items-center justify-between py-5 px-4 font-size-32 font-weight-bolder">
+      <div className="container mx-auto flex items-center justify-between py-5 px-4 font-weight-bolder">
         {/* Logo */}
-        <div class="relative text-4xl font-extrabold uppercase tracking-widest text-gray-800">
-          ABDURE
+        <div className="relative text-2xl font-extrabold tracking-widest text-gray-800">
+          Abdu K.
 
-          <span
+          {/* <span
             class="absolute left-0 -bottom-1 w-full h-0.5 bg-gray-800 transition-all duration-300 ease-out transform hover:w-[120%] hover:left-[-10%]">
-          </span>
+          </span> */}
         </div>
 
 
