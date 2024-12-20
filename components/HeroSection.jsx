@@ -9,9 +9,7 @@ import { Canvas } from '@react-three/fiber';
 import { Center, PerspectiveCamera, OrbitControls } from '@react-three/drei';
 
 import SofaModel from './SofaModel';
-import VentilatorModel from './VentilatorModel';
 import LampModel from './LampModel';
-import FlowerModel from './FlowerModel';
 import PalmPlantModel from './PalmPlantModel';
 import CarpetModel from './CarpetModel';
 
@@ -27,8 +25,8 @@ export default function HeroSection() {
 
   return (
     <div className="relative flex flex-col lg:flex-row items-center justify-between h-screen px-5 lg:px-20">
-      <div className='absolute inset-0 z-[-1] object-cover'>
-        <img src="/hero.jpg" alt="hero image" className='w-full h-full object-cover' />
+      <div className='absolute inset-0 z-[-1]'>
+        <img src="/home.jpg" alt="hero image" className='w-full h-full object-cover brightness-75' />
       </div>
 
       {/* Left Content: Navigation + Hero Text */}
@@ -49,8 +47,8 @@ export default function HeroSection() {
 
         {/* Hero Text */}
         <div className="">
-          <p className="text-gray-400 tracking-widest font-thin mb-4 lg:mb-6">ADDISINTERIOR</p>
-          <h1 className="text-gray-200 text-3xl font-semibold leading-tight mb-4 lg:mb-6 lg:text-5xl">
+          <p className="text-gray-200 tracking-widest font-thin mb-4 lg:mb-6">ADDISINTERIOR</p>
+          <h1 className="text-gray-100 text-3xl font-semibold leading-tight mb-4 lg:mb-6 lg:text-5xl">
             INTERIOR DESIGN EXPERTS
           </h1>
           <p className="text-gray-300 mb-8 lg:mb-12 text-sm lg:text-1xl">
@@ -79,11 +77,10 @@ export default function HeroSection() {
       </div>
 
       {/* Right Content: 3D Model */}
-      <div className="w-full lg:w-[650px] h-[400px] lg:h-full flex items-center justify-center">
+      <div className="w-full lg:w-[700px] h-[400px] lg:h-full flex items-center justify-center">
         <Canvas className="w-full h-full">
-          <ambientLight intensity={0.5} />
-          <directionalLight intensity={6} position={[10, 10, 10]} />
-          <directionalLight intensity={1} position={[-4, 1, -2]} />
+          <ambientLight intensity={1} />
+          <directionalLight intensity={4} position={[-10, 10, 5]} />
           <PerspectiveCamera makeDefault position={[0, 5, 23]} />
 
           {/* OrbitControls attached to the camera */}
@@ -92,38 +89,31 @@ export default function HeroSection() {
               <group>
                 {/* <OrbitControls /> */}
                 <SofaModel
-                  position={[-1.5, -14, 1]}
-                  rotation={[-0.17, -0.7, -0.025]}
-                  scale={5.5}
+                  position={[-1.5, -2.2, .5]}
+                  rotation={[-0.17, -0.7, -.02]}
+                  scale={5}
                 />
               </group>
             </Center>
           </Suspense>
 
-          {/* VentilatorModel remains static and unaffected by OrbitControls */}
           <group>
-            {/* <VentilatorModel
-              position={[-10, 18, -4]}
-              rotation={[0, 0, 0]}
-              scale={.07}
-            /> */}
-
             <LampModel
-              position={[0, 2.5, -4]}
+              position={[-5, 2.5, -4]}
               rotation={[0, 0, 0]}
               scale={5}
               autoRotate
             />
 
             <PalmPlantModel
-              position={[3, -2.5, 8]}
+              position={[5.5, -2.5, 7]}
               rotation={[0, 1, 0]}
-              scale={5}
+              scale={4}
             />
 
             <CarpetModel
-              position={[-1, -7, -5.6]}
-              rotation={[-0.2, -0.7, -0.01]}
+              position={[0, -7, -4]}
+              rotation={[-0.2, -0.65, -0.01]}
               scale={15}
             />
           </group>
