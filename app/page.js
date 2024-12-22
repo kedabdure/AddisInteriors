@@ -4,7 +4,7 @@ import CatalogueSection from "@/components/CatalogueSection";
 import CompanySection from "@/components/CompanySection";
 import ContactSection from "@/components/ContactSection";
 import HeroSection from "@/components/HeroSection";
-import ThreeDViewer from "@/components/ThreeDViewer";
+import ThreeDViewer from "@/components/3D/ThreeDViewer";
 
 export default function Home() {
   return (

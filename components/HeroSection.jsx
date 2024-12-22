@@ -9,10 +9,10 @@ import { useMediaQuery } from "react-responsive";
 import { Canvas } from '@react-three/fiber';
 import { Center, PerspectiveCamera, OrbitControls } from '@react-three/drei';
 
-import SofaModel from './SofaModel';
-import LampModel from './LampModel';
-import PalmPlantModel from './PalmPlantModel';
-import CarpetModel from './CarpetModel';
+import SofaModel from './3D/SofaModel';
+import LampModel from './3D/LampModel';
+import PalmPlantModel from './3D/PalmPlantModel';
+import CarpetModel from './3D/CarpetModel';
 import Loading from './Loading';
 
 import { calculateSizes } from "@/constants";
@@ -112,14 +112,14 @@ export default function HeroSection() {
                 autoRotate
               />
               <PalmPlantModel
-                position={[5.5, -2.5, 7]}
-                rotation={[0, 1, 0]}
-                scale={4}
+                position={sizes.plantPosition}
+                rotation={sizes.plantRotation}
+                scale={sizes.plantScale}
               />
               <CarpetModel
-                position={[.05, -7, -5]}
-                rotation={[-0.2, -0.5, -0.01]}
-                scale={11}
+                position={sizes.carpetPosition}
+                rotation={sizes.carpetRotation}
+                scale={sizes.carpetScale}
               />
             </group>
           </Suspense>

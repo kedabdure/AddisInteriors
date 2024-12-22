@@ -9,9 +9,9 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import Image from 'next/image';
 
 // Images
-import panoramic1 from "../public/360/panoramic1.jpg";
-import panoramic2 from "../public/360/panoramic2.jpeg";
-import Icon360 from "../public/360/Icon360.svg";
+import panoramic1 from "../../public/360/panoramic1.jpg";
+import panoramic2 from "../../public/360/panoramic2.jpeg";
+import Icon360 from "../../public/360/Icon360.svg";
 
 // List of images
 const images = [panoramic1, panoramic2];

@@ -31,9 +31,9 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if (isHomePage && screenWidth >= 1024) { // Only run scroll effect on large screens
+    if (isHomePage && screenWidth >= 1024) {
       const handleScroll = () => {
-        const heroSectionHeight = 80; // Adjust as needed
+        const heroSectionHeight = 80;
         const scrollPosition = window.scrollY;
         setShowMainNavigation(scrollPosition > heroSectionHeight);
       };
