@@ -24,7 +24,7 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const currentPosition = window.scrollY;
-      setIsHeaderVisible(currentPosition < scrollPosition || currentPosition === 0);
+      setIsHeaderVisible(currentPosition <= scrollPosition);
       setScrollPosition(currentPosition);
     };
 
@@ -36,24 +36,26 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-20 transition-transform duration-300 ease-in-out ${
-        scrollPosition === 0 ? "bg-transparent" : "bg-gray-950"
-      } ${isHeaderVisible ? "translate-y-0" : "-translate-y-full"}`}
+      className={`fixed top-0 left-0 w-full z-20 transition-all duration-500 ease-in-out ${scrollPosition === 0 ? "bg-transparent" : "bg-white shadow-sm"
+        } ${isHeaderVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
-      <div className="container mx-auto flex items-center justify-between py-4 px-4 lg:px-12">
+      <div className="container mx-auto flex items-center justify-between py-3 lg:py-5 px-4 lg:px-12">
         {/* Logo */}
-        <div className="relative text-2xl font-bold tracking-widest text-gray-200">
-          Abdu K.
+        <div className={`relative text-2xl font-bold tracking-tight ${scrollPosition === 0 ? "text-gray-300" : "text-gray-600"}`}>
+          AddisInterior
         </div>
 
         {/* Main Navigation */}
         <div className="hidden lg:flex">
-          <TopBar navLinks={navLinks} />
+          <TopBar navLinks={navLinks} scrollPosition={scrollPosition} />
         </div>
 
         {/* Hamburger Icon for Small Devices */}
         <div className="lg:hidden flex items-center">
-          <button onClick={toggleSidebar} className="text-gray-200">
+          <button
+            onClick={toggleSidebar}
+            className={`${scrollPosition > 0 ? "text-gray-600" : "text-gray-300"}  transition-colors duration-300`}
+          >
             <GiHamburgerMenu size={24} />
           </button>
         </div>

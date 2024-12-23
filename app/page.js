@@ -1,9 +1,9 @@
-import AboutComponent from "@/components/AboutComponent";
-import CatalogSwiperSection from "@/components/CatalogSwiperCection";
-import CatalogueSection from "@/components/CatalogueSection";
-import CompanySection from "@/components/CompanySection";
-import ContactSection from "@/components/ContactSection";
-import HeroSection from "@/components/HeroSection";
+import AboutComponent from "@/components/sections/AboutComponent";
+import CatalogSwiperSection from "@/components/sections/CatalogSwiperCection";
+import CatalogueSection from "@/components/sections/CatalogueSection";
+import CompanySection from "@/components/sections/CompanySection";
+import ContactSection from "@/components/sections/ContactSection";
+import HeroSection from "@/components/home/HeroSection";
 import ThreeDViewer from "@/components/3D/ThreeDViewer";
 
 export default function Home() {
