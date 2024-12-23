@@ -41,8 +41,8 @@ export default function HeroSection() {
       </div>
 
       {/* Left Content: Navigation + Hero Text */}
-      <div className="w-full h-full flex flex-col lg:w-1/2 text-center lg:text-left mt-28 lg:mt-0">
-        <nav className="hidden justify-center lg:justify-start gap-6 mb-20 mt-10 lg:flex">
+      <div className="w-full h-full flex flex-col lg:w-1/2 text-center justify-center lg:text-left mt-28 lg:mt-0">
+        <nav className="hidden justify-center lg:justify-start gap-6 mb-8 mt-10 lg:flex">
           {navItems.map(({ href, label }) => (
             <Link
               key={href}
@@ -57,28 +57,30 @@ export default function HeroSection() {
         </nav>
 
         {/* Hero Text */}
-        <div className="">
-          <p className="text-gray-200 tracking-widest font-thin text-sm md:text-lg mb-2 lg:mb-6">ADDISINTERIOR</p>
-          <h1 className="text-gray-100 text-3xl font-semibold mb-4 lg:mb-6 lg:text-5xl" style={{ lineHeight: "1.2" }}>
-            Interior Design Expert In Ethiopia
-          </h1>
-          <p className="text-gray-300 mb-4 lg:mb-12 text-sm lg:text-1xl">
-            Discover exceptional interior design.
-            Transform your home with our stylish and functional solutions.
-          </p>
+        <div className="w-full h-full flex flex-col gap-5 lg:gap-4 justify-center">
+          <div>
+            <p className="text-gray-200 tracking-widest font-thin text-sm md:text-lg mb-4 lg:mb-6">ADDISINTERIOR</p>
+            <h1 className="text-gray-100 text-2xl md:text-4xl lg:text-5xl font-semibold mb-4 lg:mb-6" style={{ lineHeight: "1.4" }}>
+              Interior Design Expert In Ethiopia
+            </h1>
+            <p className="text-gray-300 lg:mb-12 text-xs lg:text-1xl">
+              Discover exceptional interior design.
+              Transform your home with our stylish and functional solutions.
+            </p>
+          </div>
 
           {/* Buttons */}
-          <div className="flex flex-col gap-3 md:gap-4 md:flex-row justify-center lg:justify-start mt-0 md:mt-5 lg:mt-24">
+          <div className="flex flex-col gap-3 md:gap-4 md:flex-row justify-center lg:justify-start">
             <Link
               href="/contact"
-              className="inline-flex mx-auto md:mx-0 max-w-[170px] items-center px-6 py-2.5 md:px-6 md:py-3 font-medium bg-white text-black border border-transparent rounded-full shadow-md transition-transform duration-300 ease-in-out hover:scale-105"
+              className="inline-flex mx-auto md:mx-0 max-w-[170px] items-center px-5 py-2 md:px-6 md:py-3 text-sm font-normal bg-white text-black border border-transparent rounded-full shadow-md transition-transform duration-300 ease-in-out hover:scale-105"
             >
               Contact Us
               <TbArrowUpRight className="w-5 h-5 ml-2" />
             </Link>
             <Link
               href="/projects"
-              className="inline-flex mx-auto md:mx-0 max-w-[170px] items-center px-6 py-2 md:px-6 md:py-3 font-medium text-white border border-white rounded-full shadow-md transition-transform duration-300 ease-in-out hover:bg-gray-950 hover:text-white hover:scale-105"
+              className="inline-flex mx-auto md:mx-0 max-w-[170px] items-center px-5 py-2 md:px-6 md:py-3 text-sm font-normal text-white border border-white rounded-full shadow-md transition-transform duration-300 ease-in-out hover:bg-gray-950 hover:text-white hover:scale-105"
             >
               Our Works
               <TbArrowUpRight className="w-5 h-5 ml-2" />
