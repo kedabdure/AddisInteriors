@@ -7,6 +7,9 @@ const SofaCamera = ({ children }) => {
   const [rotationVelocity, setRotationVelocity] = useState(0);
   const [previousPosition, setPreviousPosition] = useState(null);
 
+  // Sensitivity factor: Higher for touch devices
+  const sensitivity = window.innerWidth < 768 ? 0.0003 : 0.0001; // Adjust based on screen width
+
   const getClientX = (event) => {
     if (event.touches) {
       // For touch events
@@ -27,8 +30,8 @@ const SofaCamera = ({ children }) => {
     const currentPosition = getClientX(event);
     const deltaX = currentPosition - previousPosition;
 
-    // Adjust rotation velocity based on movement
-    setRotationVelocity((prev) => prev + deltaX * 0.0001);
+    // Adjust rotation velocity based on movement and sensitivity
+    setRotationVelocity((prev) => prev + deltaX * sensitivity);
 
     setPreviousPosition(currentPosition); // Update position
   };
