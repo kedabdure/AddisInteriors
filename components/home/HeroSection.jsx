@@ -7,13 +7,14 @@ import { Suspense } from 'react';
 import { useMediaQuery } from "react-responsive";
 
 import { Canvas } from '@react-three/fiber';
-import { Center, PerspectiveCamera, OrbitControls } from '@react-three/drei';
+import { PerspectiveCamera } from '@react-three/drei';
 
 import SofaModel from '../3D/SofaModel';
 import LampModel from '../3D/LampModel';
 import PalmPlantModel from '../3D/PalmPlantModel';
 import CarpetModel from '../3D/CarpetModel';
 import Loading from '../Loading';
+import SofaCamera from "../3D/SofaCamera";
 
 import { calculateSizes } from "@/constants";
 
@@ -80,13 +81,13 @@ export default function HeroSection() {
           <directionalLight intensity={4} position={[-10, 10, 5]} />
           <PerspectiveCamera makeDefault position={[0, 5, 23]} />
           <Suspense fallback={<Loading />}>
-            <group>
+            <SofaCamera>
               <SofaModel
                 position={sizes.sofaPosition}
                 rotation={sizes.sofaRotation}
                 scale={sizes.sofaScale}
               />
-            </group>
+            </SofaCamera>
             <group>
               <LampModel
                 position={sizes.lampPosition}
@@ -94,11 +95,13 @@ export default function HeroSection() {
                 scale={sizes.lampScale}
                 autoRotate
               />
-              <PalmPlantModel
-                position={sizes.plantPosition}
-                rotation={sizes.plantRotation}
-                scale={sizes.plantScale}
-              />
+              <SofaCamera>
+                <PalmPlantModel
+                  position={sizes.plantPosition}
+                  rotation={sizes.plantRotation}
+                  scale={sizes.plantScale}
+                />
+              </SofaCamera>
               <CarpetModel
                 position={sizes.carpetPosition}
                 rotation={sizes.carpetRotation}

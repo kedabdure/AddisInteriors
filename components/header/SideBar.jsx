@@ -13,20 +13,20 @@ const SideBar = ({ sidebarOpen, toggleSidebar, navLinks }) => {
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
-        toggleSidebar(); // Close the sidebar
+        toggleSidebar();
       }
     };
 
     if (sidebarOpen) {
       document.addEventListener("click", handleClickOutside);
-      document.body.style.overflow = "hidden"; // Prevent scrolling when sidebar is open
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "auto"; // Re-enable scrolling
+      document.body.style.overflow = "auto";
     }
 
     return () => {
       document.removeEventListener("click", handleClickOutside);
-      document.body.style.overflow = "auto"; // Cleanup to avoid side effects
+      document.body.style.overflow = "auto";
     };
   }, [sidebarOpen, toggleSidebar]);
 
