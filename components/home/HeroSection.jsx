@@ -35,7 +35,7 @@ export default function HeroSection() {
   const sizes = calculateSizes(isSmall, isMobile, isTablet);
 
   return (
-    <div className="relative flex flex-col lg:flex-row items-center justify-between h-screen px-5 sm:px-14 md:px-32 lg:px-5 xl:px-20">
+    <div className="relative flex flex-col lg:flex-row items-center justify-between h-screen px-5 sm:px-14 md:px-32 lg:px-14">
       <div className='absolute inset-0 z-[-1]'>
         <img src="/hero2.jpeg" alt="hero image" className='w-full h-full object-cover brightness-75' />
       </div>

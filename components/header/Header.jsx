@@ -39,9 +39,9 @@ export default function Header() {
       className={`fixed top-0 left-0 w-full z-20 transition-all duration-500 ease-in-out ${scrollPosition === 0 ? "bg-transparent" : "bg-white shadow-sm"
         } ${isHeaderVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
-      <div className="container mx-auto flex items-center justify-between py-3 lg:py-5 px-4 lg:px-12">
+      <div className="mx-auto flex items-center justify-between py-5 lg:py-5 px-4 sm:px-14 md:px-32 lg:px-14">
         {/* Logo */}
-        <div className={`relative text-2xl font-bold tracking-tight ${scrollPosition === 0 ? "text-gray-300" : "text-gray-600"}`}>
+        <div className={`relative text-2xl font-medium tracking-tight ${scrollPosition === 0 ? "text-gray-300" : "text-gray-600"}`}>
           AddisInterior
         </div>
 
