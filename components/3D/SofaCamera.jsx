@@ -1,32 +1,41 @@
 import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { easing } from 'maath';
 
 const SofaCamera = ({ children }) => {
   const sofaRef = useRef();
   const [isDragging, setIsDragging] = useState(false);
   const [rotationVelocity, setRotationVelocity] = useState(0);
-  const [previousMousePosition, setPreviousMousePosition] = useState(null);
+  const [previousPosition, setPreviousPosition] = useState(null);
+
+  const getClientX = (event) => {
+    if (event.touches) {
+      // For touch events
+      return event.touches[0].clientX;
+    }
+    // For mouse events
+    return event.clientX;
+  };
 
   const handlePointerDown = (event) => {
     setIsDragging(true);
-    setPreviousMousePosition(event.clientX); // Capture starting mouse position
+    setPreviousPosition(getClientX(event)); // Capture starting position
   };
 
   const handlePointerMove = (event) => {
     if (!isDragging || !sofaRef.current) return;
 
-    const deltaX = event.clientX - previousMousePosition;
+    const currentPosition = getClientX(event);
+    const deltaX = currentPosition - previousPosition;
 
-    // Adjust rotation velocity based on drag
-    setRotationVelocity((prev) => prev + deltaX * 0.00005);
+    // Adjust rotation velocity based on movement
+    setRotationVelocity((prev) => prev + deltaX * 0.0001);
 
-    setPreviousMousePosition(event.clientX);
+    setPreviousPosition(currentPosition); // Update position
   };
 
   const handlePointerUp = () => {
     setIsDragging(false);
-    setPreviousMousePosition(null);
+    setPreviousPosition(null);
   };
 
   useFrame((_, delta) => {
@@ -37,7 +46,7 @@ const SofaCamera = ({ children }) => {
       // Gradual deceleration when not dragging
       if (!isDragging) {
         setRotationVelocity((prev) => {
-          const reduced = prev * 0.5; // Slow down gradually
+          const reduced = prev * 0.95; // Slow down gradually
           return Math.abs(reduced) < 0.0001 ? 0 : reduced; // Stop completely at a threshold
         });
       }
@@ -51,6 +60,9 @@ const SofaCamera = ({ children }) => {
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerOut={handlePointerUp} // Stop dragging when pointer leaves the object
+      onTouchStart={handlePointerDown} // Add touch support
+      onTouchMove={handlePointerMove}  // Add touch support
+      onTouchEnd={handlePointerUp}     // Add touch support
     >
       {children}
     </group>
