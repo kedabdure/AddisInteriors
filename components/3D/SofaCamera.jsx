@@ -8,7 +8,7 @@ const SofaCamera = ({ children }) => {
   const [previousPosition, setPreviousPosition] = useState(null);
 
   // Sensitivity factor: Higher for touch devices
-  const sensitivity = window.innerWidth < 768 ? 0.001 : 0.0001; // Adjust based on screen width
+  const sensitivity = window.innerWidth < 768 ? 0.002 : 0.0001; // Adjust based on screen width
 
   const getClientX = (event) => {
     if (event.touches) {
@@ -49,7 +49,7 @@ const SofaCamera = ({ children }) => {
       // Gradual deceleration when not dragging
       if (!isDragging) {
         setRotationVelocity((prev) => {
-          const reduced = prev * 0.95; // Slow down gradually
+          const reduced = prev * 0.99; // Slow down gradually
           return Math.abs(reduced) < 0.0001 ? 0 : reduced; // Stop completely at a threshold
         });
       }
