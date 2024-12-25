@@ -4,8 +4,8 @@ import Image from 'next/image'
 const OurServices = () => {
   return (
     <section className="w-full bg-zinc-50">
-      <div className="flex gap-4 items-center mb-8 md:mb-16">
-        <div className="w-20 h-[3px] bg-black"></div>
+      <div className="flex justify-center sm:justify-normal gap-4 items-center mb-8 md:mb-16">
+        <div className="w-12 md:w-16 lg:w-20 h-[3px] bg-black"></div>
         <h1 className="title-text">Our Services</h1>
       </div>
 
