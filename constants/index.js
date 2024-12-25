@@ -4,9 +4,9 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
     sofaRotation: isMobile ? [.1, 0, 0] : isMobile ? [.1, 0, 0] : isTablet ? [.1, 0, 0] : [-0.19, -0.55, -.01],
     sofaPosition: isSmall ? [0, 0.8, -1] : isMobile ? [0, 0.6, 0] : isTablet ? [0, 0.8, 2] : [0.5, -5, -0.5],
 
-    plantScale: isSmall ? 5.5 : isMobile ? 6 : isTablet ? 7.5 : 4.5,
+    plantScale: isSmall ? 5.5 : isMobile ? 6 : isTablet ? 7.5 : 4,
     plantRotation: isSmall ? [-0.1, 1, 0] : [-0.15, 1, 0],
-    plantPosition: isSmall ? [3, 0, 12] : isMobile ? [7.5, 0, 6.5] : isTablet ? [9, 0, 9] : [5, -2.5, 7],
+    plantPosition: isSmall ? [3, 0, 12] : isMobile ? [7.5, 0, 6.5] : isTablet ? [9, 0, 9] : [6, -2.5, 7],
 
     carpetScale: isSmall ? 13.5 : isMobile ? 13 : isTablet ? 14 : 10,
     carpetRotation: isSmall ? [0.01, 0, 0] : isMobile ? [0.01, 0, 0] : isTablet ? [0, 0, 0] : [-0.2, -0.5, -0.01],

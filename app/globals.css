@@ -6,3 +6,23 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* General padding for all sections */
+@layer utilities {
+  .c-space {
+    @apply py-16 px-4 md:py-12 md:px-8 lg:py-16 lg:px-16;
+  }
+
+  .title-text {
+    @apply text-3xl font-bold md:text-3xl lg:text-4xl;
+  }
+
+  .subtitle-text {
+    @apply text-lg font-medium md:text-xl lg:text-2xl;
+  }
+}
+
+/* Apply the custom class to all sections */
+section {
+  @apply c-space;
+}
