@@ -18,7 +18,7 @@ html {
   }
 
   .subtitle-text {
-    @apply text-lg font-medium md:text-xl lg:text-2xl;
+    @apply font-medium text-xl sm:text-2xl;
   }
 }
 
