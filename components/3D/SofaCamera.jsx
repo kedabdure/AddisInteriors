@@ -8,7 +8,7 @@ const SofaCamera = ({ children }) => {
   const [previousPosition, setPreviousPosition] = useState(null);
 
   // Sensitivity factor: Higher for touch devices
-  const sensitivity = window.innerWidth < 768 ? 0.002 : 0.0001; // Adjust based on screen width
+  const sensitivity = window.innerWidth < 768 ? 0.002 : 0.0001;
 
   const getClientX = (event) => {
     if (event.touches) {
@@ -21,7 +21,7 @@ const SofaCamera = ({ children }) => {
 
   const handlePointerDown = (event) => {
     setIsDragging(true);
-    setPreviousPosition(getClientX(event)); // Capture starting position
+    setPreviousPosition(getClientX(event));
   };
 
   const handlePointerMove = (event) => {
@@ -33,7 +33,7 @@ const SofaCamera = ({ children }) => {
     // Adjust rotation velocity based on movement and sensitivity
     setRotationVelocity((prev) => prev + deltaX * sensitivity);
 
-    setPreviousPosition(currentPosition); // Update position
+    setPreviousPosition(currentPosition);
   };
 
   const handlePointerUp = () => {
@@ -49,8 +49,8 @@ const SofaCamera = ({ children }) => {
       // Gradual deceleration when not dragging
       if (!isDragging) {
         setRotationVelocity((prev) => {
-          const reduced = prev * 0.99; // Slow down gradually
-          return Math.abs(reduced) < 0.0001 ? 0 : reduced; // Stop completely at a threshold
+          const reduced = prev * 0.86;
+          return Math.abs(reduced) < 0.0001 ? 0 : reduced;
         });
       }
     }
@@ -62,10 +62,10 @@ const SofaCamera = ({ children }) => {
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
-      onPointerOut={handlePointerUp} // Stop dragging when pointer leaves the object
-      onTouchStart={handlePointerDown} // Add touch support
-      onTouchMove={handlePointerMove}  // Add touch support
-      onTouchEnd={handlePointerUp}     // Add touch support
+      onPointerOut={handlePointerUp}
+      onTouchStart={handlePointerDown}
+      onTouchMove={handlePointerMove}
+      onTouchEnd={handlePointerUp}
     >
       {children}
     </group>

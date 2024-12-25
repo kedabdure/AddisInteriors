@@ -86,8 +86,10 @@ export default function HeroSection() {
                 position={sizes.sofaPosition}
                 rotation={sizes.sofaRotation}
                 scale={sizes.sofaScale}
+                isMobile={isMobile}
               />
             </SofaCamera>
+
             <group>
               <LampModel
                 position={sizes.lampPosition}
