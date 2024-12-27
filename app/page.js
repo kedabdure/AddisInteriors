@@ -6,12 +6,15 @@ import ContactSection from "@/components/sections/ContactSection";
 import HeroSection from "@/components/home/HeroSection";
 import ThreeDViewer from "@/components/3D/ThreeDViewer";
 import OurServices from "@/components/sections/OurServices";
+import Panorama from "@/components/3D/Panorama";
+
 
 export default function Home() {
   return (
     <>
       <HeroSection />
       <OurServices />
+      <Panorama />
       {/* <CompanySection /> */}
       <AboutComponent />
       <CatalogueSection />
