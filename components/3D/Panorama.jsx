@@ -9,13 +9,27 @@ import Image from "next/image";
 // Assets
 const expand = '/icons/expand.svg';
 const shrink = '/icons/shrink.svg';
+const right = '/icons/right.svg';
+const left = '/icons/left.svg';
 const panoImage = '/360/panoramic2.jpeg';
+const panoImage2 = '/360/panoramic1.jpg';
+
+const panoImages = [panoImage, panoImage2];
 
 export default function Panorama() {
   const containerRef = useRef(null);
   const orbitControlsRef = useRef(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAutoRotate, setIsAutoRotate] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % panoImages.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + panoImages.length) % panoImages.length);
+  };
 
   useEffect(() => {
     const handleClick = () => {
@@ -44,20 +58,23 @@ export default function Panorama() {
   return (
     <div
       ref={containerRef}
-      className="flex flex-col lg:flex-row items-center justify-between h-screen px-5 sm:px-14 md:px-32 lg:px-14"
+      className={`relative ${isExpanded
+          ? "fixed top-0 left-0 w-full h-full"
+          : "flex flex-col lg:flex-row items-center justify-between h-screen px-5 sm:px-14 md:px-32 lg:px-14"
+        }`}
     >
-      <div className="relative w-full h-[600px] md:h-[300px] lg:h-full flex items-center justify-center">
+      <div
+        className={`relative ${isExpanded ? "w-full h-full" : "mx-auto w-full lg:w-[90%] h-[600px] md:h-[300px] lg:h-full"
+          } flex items-center justify-center`}
+      >
         <Canvas className="w-full h-full">
-          <ambientLight intensity={1} />
-          <directionalLight intensity={3} position={[0, 0, 5]} />
-
           <PerspectiveCamera makeDefault fov={75} position={[0, 0, 5]} />
 
           <OrbitControls
             ref={orbitControlsRef}
             enableZoom
             zoomSpeed={0.8}
-            minDistance={1}
+            minDistance={0.1}
             maxDistance={5}
             enablePan={true}
             autoRotate={isAutoRotate}
@@ -68,7 +85,7 @@ export default function Panorama() {
 
           {/* 360° Sphere with Panoramic Image */}
           <Suspense fallback={<Loading />}>
-            <PanoramaSphere panoramicImage={panoImage} />
+            <PanoramaSphere panoramicImage={panoImages[currentImageIndex]} />
           </Suspense>
         </Canvas>
 
@@ -78,10 +95,30 @@ export default function Panorama() {
             className="bg-black bg-opacity-20 p-2 rounded-full"
           >
             {isExpanded ? (
-              <Image src={shrink} alt="shrink" width={24} height={24} />
+              <Image src={shrink} alt="shrink" width={20} height={20} />
             ) : (
-              <Image src={expand} alt="expand" width={24} height={24} />
+              <Image src={expand} alt="expand" width={20} height={20} />
             )}
+          </button>
+        </div>
+
+        {/* Left and Right Arrows */}
+        <div className="w-full absolute top-[50%] left-0 flex items-center justify-between z-40 px-3">
+          <button
+            onClick={handlePrev}
+            className={` p-2 rounded-full sm:p-1 md:p-2
+              ${currentImageIndex !== 0 ? "bg-black bg-opacity-20" : "bg-gray-300 bg-opacity-50"}
+            `}
+          >
+            <Image src={left} alt="previous" width={28} height={28} />
+          </button>
+          <button
+            onClick={handleNext}
+            className={` p-2 rounded-full sm:p-1 md:p-2
+              ${currentImageIndex !== panoImages.length - 1 ? "bg-black bg-opacity-20" : "bg-gray-300 bg-opacity-50"}
+            `}
+          >
+            <Image src={right} alt="next" width={28} height={28} />
           </button>
         </div>
       </div>

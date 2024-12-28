@@ -14,13 +14,13 @@ export default function Home() {
     <>
       <HeroSection />
       <OurServices />
-      <Panorama />
       {/* <CompanySection /> */}
       <AboutComponent />
       <CatalogueSection />
       <CatalogSwiperSection />
       <ContactSection />
-      <ThreeDViewer />
+      {/* <ThreeDViewer /> */}
+      <Panorama />
     </>
   );
 }
