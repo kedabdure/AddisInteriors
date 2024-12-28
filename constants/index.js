@@ -16,3 +16,35 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
     lampPosition: isTablet ? [-2, 3.2, -4] : [-2, 7.5, -4],
   };
 };
+
+export const catalogs = [
+  {
+    id: "01",
+    catagory: "BEDROOM SETUP",
+    title: "Bedroom Setup",
+    image: "/image/badroom.jpg",
+    description: "family drowing room with a clean and comfortable design for your family.",
+  },
+  {
+    id: "02",
+    catagory: "KITCHING SETUP",
+    title: "Neat & Clean Kitchen",
+    image: "/image/kitchen1.jpg",
+    description: "family drowing room with a clean and comfortable design for your family.",
+  },
+  {
+    id: "03",
+    catagory: "DROWING SETUP",
+    title: "Family Drowing Room",
+    image: "/image/drowing.jpg",
+    description: "family drowing room with a clean and comfortable design for your family.",
+  },
+  {
+    id: "04",
+    catagory: "LIVING SETUP",
+    title: "Clean Family Room",
+    image: "/image/living.jpg",
+    description: "family drowing room with a clean and comfortable design for your family.",
+  },
+]
+
