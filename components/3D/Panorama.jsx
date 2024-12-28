@@ -20,8 +20,13 @@ export default function Panorama() {
   useEffect(() => {
     const handleClick = () => {
       if (orbitControlsRef.current) {
-        setIsAutoRotate((prev) => !prev);
+        setIsAutoRotate(false);
       }
+      setTimeout(() => {
+        if (orbitControlsRef.current) {
+          setIsAutoRotate(true);
+        }
+      }, 5000);
     };
 
     const container = containerRef.current;
