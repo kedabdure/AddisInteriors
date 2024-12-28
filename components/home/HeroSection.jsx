@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { TbArrowUpRight } from 'react-icons/tb';
-import { usePathname } from "next/navigation";
 import { Suspense } from 'react';
 import { useMediaQuery } from "react-responsive";
 
@@ -18,17 +17,7 @@ import SofaCamera from "../3D/SofaCamera";
 
 import { calculateSizes } from "@/constants";
 
-
-const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/about", label: "About" },
-  { href: "/gallery", label: "Gallery" },
-];
-
 export default function HeroSection() {
-  const pathname = usePathname();
-
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
   const isSmall = useMediaQuery({ maxWidth: 440 })
