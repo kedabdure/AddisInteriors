@@ -68,14 +68,14 @@ export default function Panorama() {
           } flex items-center justify-center`}
       >
         <Canvas className="w-full h-full">
-          <PerspectiveCamera makeDefault fov={75} position={[0, 0, 5]} />
+          <PerspectiveCamera makeDefault fov={75} position={[0, -1, 5]} />
 
           <OrbitControls
             ref={orbitControlsRef}
             enableZoom
             zoomSpeed={0.8}
-            minDistance={0.1}
-            maxDistance={5}
+            minDistance={1}
+            maxDistance={3}
             enablePan={true}
             autoRotate={isAutoRotate}
             autoRotateSpeed={0.5}
