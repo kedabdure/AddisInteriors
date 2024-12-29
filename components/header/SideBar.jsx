@@ -34,13 +34,13 @@ const SideBar = ({ sidebarOpen, toggleSidebar, navLinks }) => {
     <>
       {/* Overlay */}
       {sidebarOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-[9999]"></div>
+        <div className="fixed inset-0 w-screen h-screen bg-black bg-opacity-50 z-[99999]"></div>
       )}
 
       {/* Sidebar */}
       <div
         ref={sidebarRef}
-        className={`fixed top-0 right-0 h-screen bg-gray-900 text-white shadow-lg transition-transform duration-300 ease-in-out z-[10000] ${
+        className={`fixed top-0 right-0 h-screen bg-gray-900 text-white shadow-lg transition-transform duration-300 ease-in-out z-[100000] ${
           sidebarOpen ? "translate-x-0" : "translate-x-full"
         } w-4/5 sm:w-2/3 lg:hidden`}
       >
