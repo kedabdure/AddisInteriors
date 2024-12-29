@@ -59,14 +59,23 @@ export default function Panorama() {
     <div
       ref={containerRef}
       className={`relative ${isExpanded
-          ? "fixed top-0 left-0 w-full h-full"
-          : "flex flex-col lg:flex-row items-center justify-between h-screen px-5 sm:px-14 md:px-32 lg:px-14"
+        ? "fixed top-0 left-0 w-full h-full"
+        : "flex flex-col lg:flex-row items-center justify-between h-screen px-5 sm:px-14 md:px-32 lg:px-14"
         }`}
     >
       <div
         className={`relative ${isExpanded ? "w-full h-full" : "mx-auto w-full lg:w-[90%] h-[600px] md:h-[300px] lg:h-full"
           } flex items-center justify-center`}
       >
+        <div className="flex flex-col items-center my-4 text-center">
+          <p className="text-lg font-semibold">
+            Discover the art of creating spaces that inspire.
+          </p>
+          <p className="text-gray-600 mt-2">
+            At Addis Interiors, we bring your dream spaces to life with precision and style.
+          </p>
+        </div>
+
         <Canvas className="w-full h-full">
           <PerspectiveCamera makeDefault fov={75} position={[0, -1, 5]} />
 

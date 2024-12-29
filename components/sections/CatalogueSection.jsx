@@ -7,9 +7,9 @@ import { catalogs } from "@/constants";
 export default function CatalogueSection() {
 
   return (
-    <div className="grid gap-8 divide-gray-300 lg:divide-x lg:gap-0 lg:grid-cols-4 md:grid-cols-2 c-space">
+    <div className="grid gap-8 divide-gray-300 lg:divide-x lg:gap-0 lg:grid-cols-4 md:grid-cols-2 c-space md:p-0">
       {catalogs.map((item) => (
-        <div key={item.id} className="relative overflow-hidden group rounded-md">
+        <div key={item.id} className="relative overflow-hidden group rounded-sm">
           <div>
             <Image src={item.image} width={380} height={100} alt="" className="w-full" />
           </div>

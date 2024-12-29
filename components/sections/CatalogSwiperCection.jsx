@@ -1,10 +1,9 @@
 "use client";
 import Image from "next/image";
-import { TbArrowUpRight } from "react-icons/tb";
 import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Link from 'next/link'
+import Button from "../Button";
 
 
 export default function CatalogSwiperSection() {
@@ -32,24 +31,16 @@ export default function CatalogSwiperSection() {
             <div className="w-14 md:w-16 lg:w-20 h-[3px] bg-black"></div>
             <h1 className="title-text">Our Products</h1>
           </div>
-          <div className="flex flex-col gap-3">
-            <h2 className="text-xl text-center lg:text-2xl font-semibold tracking-normal text-gray-700">
+          <div className="flex flex-col gap-3 text-center md:text-left">
+            <h2 className="text-xl md:text-left lg:text-2xl font-semibold tracking-normal text-gray-700">
               Luxury Decor to Create Comfort in Your Home
             </h2>
-            <p className="text-gray-700 leading-relaxed text-center">
+            <p className="text-gray-700 leading-relaxed">
               Our distinctive and unique designs are inspired by the latest trends in interior design and fashion.
             </p>
           </div>
         </div>
-        <div className="max-w-[200px]">
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-5 py-2 md:px-7 md:py-3 text-md font-medium bg-black text-white border border-transparent rounded-sm shadow-md transition-transform duration-300 ease-in-out hover:scale-105"
-          >
-            Contact Us
-            <TbArrowUpRight className="w-6 h-6 ml-2" />
-          </Link>
-        </div>
+        <Button href={'/gallery'} title={'Gallery'} />
       </div>
 
       <div className="w-full mt-10">
