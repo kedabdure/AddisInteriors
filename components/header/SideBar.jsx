@@ -40,17 +40,17 @@ const SideBar = ({ sidebarOpen, toggleSidebar, navLinks }) => {
       {/* Sidebar */}
       <div
         ref={sidebarRef}
-        className={`fixed top-0 right-0 h-screen bg-gray-900 text-white shadow-lg transition-transform duration-300 ease-in-out z-[100000] ${
+        className={`fixed top-0 right-0 h-screen bg-white text-black shadow-lg transition-transform duration-300 ease-in-out z-[100000] ${
           sidebarOpen ? "translate-x-0" : "translate-x-full"
         } w-4/5 sm:w-2/3 lg:hidden`}
       >
         <div className="flex flex-col h-full p-5">
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
-            <span className="text-lg font-semibold text-gray-100">Menu</span>
+            <span className="text-lg font-semibold text-gray-800">AddisInterior</span>
             <button
               onClick={toggleSidebar}
-              className="text-gray-300 hover:text-red-500 transition-colors"
+              className="text-gray-600 hover:text-red-500 transition-colors"
             >
               <IoMdClose size={28} />
             </button>
@@ -62,9 +62,9 @@ const SideBar = ({ sidebarOpen, toggleSidebar, navLinks }) => {
               <Link
                 key={href}
                 href={href}
-                className={`block py-2 px-4 rounded-md text-gray-400 hover:bg-gray-800 hover:text-white transition-colors ${
+                className={`block py-2 px-4 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors ${
                   pathname === href
-                    ? "font-semibold bg-gray-700 text-white"
+                    ? "font-semibold bg-gray-200 text-gray-900"
                     : ""
                 }`}
                 onClick={toggleSidebar}
@@ -76,7 +76,7 @@ const SideBar = ({ sidebarOpen, toggleSidebar, navLinks }) => {
             {/* Contact Us Button */}
             <Link
               href="/contact"
-              className="mt-6 inline-flex items-center justify-center px-4 py-2.5 font-medium border rounded-md shadow text-white border-gray-600 hover:bg-gray-800 transition-colors"
+              className="mt-6 inline-flex items-center justify-center px-4 py-2.5 font-medium border rounded-md shadow text-gray-700 border-gray-300 hover:bg-gray-100 transition-colors"
               onClick={toggleSidebar}
             >
               Contact Us
