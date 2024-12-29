@@ -115,7 +115,7 @@ export default function Panorama() {
         </div>
 
         {/* Left and Right Arrows */}
-        <div className="absolute top-[49%] left-[3%] z-50">
+        <div className="absolute top-[49%] left-[3%] z-10">
           <button
             onClick={handlePrev}
             className=" w-12 h-12 flex items-center justify-center bg-black bg-opacity-20 rounded-full hover:bg-opacity-80 transition"
@@ -123,7 +123,7 @@ export default function Panorama() {
             <Image src={left} alt="previous" width={28} height={28} />
           </button>
         </div>
-        <div className="absolute top-[49%] right-[3%] z-50">
+        <div className="absolute top-[49%] right-[3%] z-10">
           <button
             onClick={handlePrev}
             className=" w-12 h-12 flex items-center justify-center bg-black bg-opacity-20 rounded-full hover:bg-opacity-80 transition"
