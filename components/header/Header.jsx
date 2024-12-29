@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -13,6 +14,7 @@ const navLinks = [
 ];
 
 export default function Header() {
+  const pathname = usePathname()
   const [mobileActive, setMobileActive] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
@@ -36,12 +38,12 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-20 transition-all duration-500 ease-in-out ${scrollPosition === 0 ? "bg-transparent" : "bg-white shadow-sm"
+      className={`fixed top-0 left-0 w-full z-20 transition-all duration-500 ease-in-out ${scrollPosition === 0 && pathname === '/' ? "bg-transparent" : "bg-white shadow-sm"
         } ${isHeaderVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
       <div className="mx-auto flex items-center justify-between py-5 lg:py-5 px-4 sm:px-14 md:px-32 lg:px-14">
         {/* Logo */}
-        <div className={`relative text-2xl font-medium tracking-tight ${scrollPosition === 0 ? "text-gray-300" : "text-gray-600"}`}>
+        <div className={`relative text-2xl font-medium tracking-tight ${scrollPosition === 0 && pathname === '/' ? "text-gray-300" : "text-gray-600"}`}>
           AddisInterior
         </div>
 

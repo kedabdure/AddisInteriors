@@ -11,7 +11,7 @@ export default function TopBar({ navLinks, scrollPosition }) {
       <div className="flex gap-7">
         {navLinks.map(({ href, label }) => {
           const isActive = pathname === href;
-          const isAtTop = scrollPosition === 0;
+          const isAtTop = scrollPosition === 0 && pathname === '/';
 
           return (
             <Link
@@ -32,7 +32,7 @@ export default function TopBar({ navLinks, scrollPosition }) {
 
       <Link
         href="/contact"
-        className={`inline-flex items-center px-5 py-1.5 font-medium border rounded-sm shadow ${scrollPosition === 0 ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-950 hover:bg-gray-200"} text-gray-300 border-gray-400  hover:text-white transition-colors`}
+        className={`inline-flex items-center px-5 py-1.5 font-medium border rounded-sm shadow ${scrollPosition === 0 && pathname === '/' ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-950 hover:bg-gray-200"} text-gray-300 border-gray-400  hover:text-white transition-colors`}
       >
         Contact Us <TbArrowUpRight className="w-5 h-5 ml-2" />
       </Link>
