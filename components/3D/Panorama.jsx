@@ -4,15 +4,16 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, Sphere, OrbitControls, useTexture } from "@react-three/drei";
 import Loading from "../Loading";
+import { FaVrCardboard } from "react-icons/fa";
 import Image from "next/image";
 
 // Assets
-const expand = '/icons/expand.svg';
-const shrink = '/icons/shrink.svg';
-const right = '/icons/right.svg';
-const left = '/icons/left.svg';
-const panoImage = '/360/panoramic2.jpeg';
-const panoImage2 = '/360/panoramic1.jpg';
+const expand = "/icons/expand.svg";
+const shrink = "/icons/shrink.svg";
+const right = "/icons/right.svg";
+const left = "/icons/left.svg";
+const panoImage = "/360/panoramic2.jpeg";
+const panoImage2 = "/360/panoramic1.jpg";
 
 const panoImages = [panoImage, panoImage2];
 
@@ -58,33 +59,35 @@ export default function Panorama() {
   return (
     <div
       ref={containerRef}
-      className={`relative ${isExpanded
-        ? "fixed top-0 left-0 w-full h-full"
-        : "flex flex-col lg:flex-row items-center justify-between h-screen px-5 sm:px-14 md:px-32 lg:px-14"
-        }`}
+      className='c-space'
     >
+      <div className="w-full text-center md:text-left mb-16">
+        <div className="flex flex-col md:flex-row justify-left items-center gap-3 mb-4">
+          <FaVrCardboard className="text-5xl text-black" />
+          <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-gray-800">
+            Explore Our Projects in 360° VR
+          </h1>
+        </div>
+        <h2 className="text-lg md:text-lg lg:text-xl font-medium text-gray-700">
+          Immerse yourself in stunning panoramic VR views of our completed works.
+        </h2>
+      </div>
+
       <div
-        className={`relative ${isExpanded ? "w-full h-full" : "mx-auto w-full lg:w-[90%] h-[600px] md:h-[300px] lg:h-full"
+        className={`transition-all duration-500 ease-in-out ${isExpanded
+          ? "fixed inset-0 z-50 w-screen h-screen"
+          : "relative mx-auto w-full h-[600px] md:h-screen"
           } flex items-center justify-center`}
       >
-        <div className="flex flex-col items-center my-4 text-center">
-          <p className="text-lg font-semibold">
-            Discover the art of creating spaces that inspire.
-          </p>
-          <p className="text-gray-600 mt-2">
-            At Addis Interiors, we bring your dream spaces to life with precision and style.
-          </p>
-        </div>
-
         <Canvas className="w-full h-full">
-          <PerspectiveCamera makeDefault fov={75} position={[0, -1, 5]} />
+          <PerspectiveCamera makeDefault fov={75} position={[0, 0, 5]} />
 
           <OrbitControls
             ref={orbitControlsRef}
             enableZoom
             zoomSpeed={0.8}
             minDistance={1}
-            maxDistance={3}
+            maxDistance={2}
             enablePan={true}
             autoRotate={isAutoRotate}
             autoRotateSpeed={0.5}
@@ -92,16 +95,16 @@ export default function Panorama() {
             dampingFactor={0.06}
           />
 
-          {/* 360° Sphere with Panoramic Image */}
           <Suspense fallback={<Loading />}>
             <PanoramaSphere panoramicImage={panoImages[currentImageIndex]} />
           </Suspense>
         </Canvas>
 
-        <div className="absolute top-[4%] right-[3%]">
+        {/* Expand/Collapse Button */}
+        <div className="absolute top-[3%] right-[3%] z-10">
           <button
             onClick={() => setIsExpanded((prev) => !prev)}
-            className="bg-black bg-opacity-20 p-2 rounded-full"
+            className="bg-black bg-opacity-20 p-3 rounded-full hover:bg-opacity-80 transition"
           >
             {isExpanded ? (
               <Image src={shrink} alt="shrink" width={20} height={20} />
@@ -112,20 +115,18 @@ export default function Panorama() {
         </div>
 
         {/* Left and Right Arrows */}
-        <div className="w-full absolute top-[50%] left-0 flex items-center justify-between z-40 px-3">
+        <div className="absolute top-[49%] left-[3%] z-50">
           <button
             onClick={handlePrev}
-            className={` p-2 rounded-full sm:p-1 md:p-2
-              ${currentImageIndex !== 0 ? "bg-black bg-opacity-20" : "bg-gray-300 bg-opacity-50"}
-            `}
+            className=" w-12 h-12 flex items-center justify-center bg-black bg-opacity-20 rounded-full hover:bg-opacity-80 transition"
           >
             <Image src={left} alt="previous" width={28} height={28} />
           </button>
+        </div>
+        <div className="absolute top-[49%] right-[3%] z-50">
           <button
-            onClick={handleNext}
-            className={` p-2 rounded-full sm:p-1 md:p-2
-              ${currentImageIndex !== panoImages.length - 1 ? "bg-black bg-opacity-20" : "bg-gray-300 bg-opacity-50"}
-            `}
+            onClick={handlePrev}
+            className=" w-12 h-12 flex items-center justify-center bg-black bg-opacity-20 rounded-full hover:bg-opacity-80 transition"
           >
             <Image src={right} alt="next" width={28} height={28} />
           </button>
@@ -144,7 +145,7 @@ function PanoramaSphere({ panoramicImage }) {
   }
 
   return (
-    <Sphere args={[10, 60, 40]} scale={[-1, 1, 1]}>
+    <Sphere args={[15, 60, 40]} scale={[-1, 1, 1]}>
       <meshBasicMaterial map={texture} side={2} />
     </Sphere>
   );
