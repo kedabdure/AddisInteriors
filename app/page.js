@@ -6,6 +6,7 @@ import ContactSection from "@/components/hero/ContactSection";
 import HeroSection from "@/components/hero/HeroSection";
 import OurServices from "@/components/hero/OurServices";
 import Panorama from "@/components/3D/Panorama";
+import TestGallery from "@/components/TestGallery";
 
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <CatalogSwiperSection />
       <ContactSection />
       <Panorama />
+      <TestGallery />
     </>
   );
 }

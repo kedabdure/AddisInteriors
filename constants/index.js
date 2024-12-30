@@ -113,6 +113,3 @@ export const galleryImages = [
   { id: 14, src: "/image/gallery14.jpg", alt: "Gallery 14" },
   { id: 15, src: "/image/gallery15.jpg", alt: "Gallery 15" },
 ];
-
-
-
