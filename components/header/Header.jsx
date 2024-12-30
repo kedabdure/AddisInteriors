@@ -56,7 +56,7 @@ export default function Header() {
         <div className="lg:hidden flex items-center">
           <button
             onClick={toggleSidebar}
-            className={`${scrollPosition > 0 ? "text-gray-600" : "text-gray-300"}  transition-colors duration-300`}
+            className={`${scrollPosition === 0 && pathname === '/'? "text-gray-300" : "text-gray-600"}  transition-colors duration-300`}
           >
             <GiHamburgerMenu size={24} />
           </button>

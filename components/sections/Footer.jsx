@@ -8,7 +8,7 @@ export default function Footer() {
   const [email, setEmail] = useState("");
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-black text-gray-300">
       <div className="container mx-auto grid gap-8 py-14 lg:grid-cols-4">
         {/* Newsletter Section */}
         <div className="min:w-[350px] text-center lg:text-left lg:max-w-md">

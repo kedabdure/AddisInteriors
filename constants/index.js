@@ -48,3 +48,26 @@ export const catalogs = [
   },
 ]
 
+export const projects = [
+  {
+    id: 1,
+    name: 'Drowing room for family time ',
+    description: 'Badroom with a clean and comfortable design for your family. charming whit a modern design. ',
+    image: '/image/project3.jpg',
+    link: '',
+  },
+  {
+    id: 2,
+    name: 'Kitchen look modern and clean',
+    description: 'kitchen look modern and clean. charming whit a modern design. ',
+    image: '/image/project2.jpg',
+    link: '',
+  },
+  {
+    id: 3,
+    name: 'Perfect living room for family time',
+    description: 'Drowing room with a clean and comfortable design for your family. charming whit a modern design. ',
+    image: '/image/project4.png',
+  },
+];
+

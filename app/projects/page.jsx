@@ -1,47 +1,55 @@
 import Image from "next/image";
+import { projects } from "@/constants";
+import Button from "@/components/Button";
 
 export default function Projects() {
-    const projects = [
-        {
-            id: 1,
-            name: 'Drowing room for family time ',
-            description: 'Badroom with a clean and comfortable design for your family. charming whit a modern design. ',
-            image: '/image/project3.jpg',
-            link: '',
-        },
-        {
-            id: 2,
-            name: 'Kitchen look modern and clean',
-            description: 'kitchen look modern and clean. charming whit a modern design. ',
-            image: '/image/project2.jpg',
-            link: '',
-        },
-        {
-            id: 3,
-            name: 'Perfect living room for family time',
-            description: 'Drowing room with a clean and comfortable design for your family. charming whit a modern design. ',
-            image: '/image/project4.png',
-        },
-    ];
-    return (
-        <div className="">
-            <div className="bg-[url('/image/backgroundproject.jpg')] bg-center bg-cover ">
-                <h1 className="container py-64 text-6xl font-semibold tracking-widest text-white ">OUR PROJECTS</h1>
-            </div>
-            <div className="container grid grid-cols-2 gap-8 py-8">
+  return (
+    <div>
+      {/* Hero Section */}
+      <div className="bg-[url('/image/backgroundproject.jpg')] bg-center bg-cover">
+        <h1 className="container mx-auto px-4 py-48 mt-12 text-center text-4xl font-bold tracking-widest text-white sm:text-5xl md:text-6xl lg:py-72">
+          Our Projects
+        </h1>
+      </div>
 
-                {projects.map((project) => (
-                    <div key={project.id} className="relative overflow-hidden rounded-xl group">
-                        <div>
-                            <Image src={project.image} width={480} height={380} alt="" className="w-full" />
-                        </div>
-                        <div className="absolute bottom-0 flex-col items-center justify-end w-full gap-32 p-12 text-xl text-white transition duration-300 ease-in-out translate-y-full bg-gradient-to-b from-transparent to-black group-hover:translate-y-0">
-                            <h1 className="text-2xl font-semibold">{project.name}</h1>
-                            <p className="py-4 ">{project.description}</p>
-                        </div>
-                    </div>
-                ))}
+      {/* Project Showcase */}
+      <div className="c-space">
+        <div className="container mx-auto grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:gap-8 md:py-12 lg:grid-cols-3">
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              className="relative overflow-hidden rounded-xl group shadow-md hover:shadow-lg transition-shadow duration-300"
+            >
+              {/* Project Image */}
+              <div>
+                <Image
+                  src={project.image}
+                  width={480}
+                  height={380}
+                  alt={project.name}
+                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+
+              {/* Overlay with Details */}
+              <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center w-full gap-4 p-6 text-center text-white transition-transform duration-300 bg-gradient-to-t from-black/80 to-transparent group-hover:translate-y-0 translate-y-full">
+                <h2 className="text-lg font-semibold sm:text-xl md:text-2xl">
+                  {project.name}
+                </h2>
+                <p className="text-sm sm:text-base">{project.description}</p>
+              </div>
             </div>
+          ))}
         </div>
-    )
+
+        {/* Call to Action */}
+        <div className="relative bg-gradient-to-r from-purple-200/30 via-pink-100/20 to-indigo-300/30 backdrop-blur-xl text-center m-4 p-20 flex flex-col gap-5 md:gap-8 rounded-md shadow-lg">
+          <h2 className="text-xl font-semibold md:text-4xl text-gray-900">
+            Want to know more about our projects?
+          </h2>
+          <Button href={'/contact'} title={'Contact Us'} />
+        </div>
+      </div>
+    </div>
+  );
 }
