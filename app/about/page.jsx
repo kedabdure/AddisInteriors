@@ -1,74 +1,66 @@
-import Image from 'next/image'
-import { TbArrowUpRight } from "react-icons/tb"
+import Image from 'next/image';
+import Button from '@/components/Button';
+import Teams from '@/components/hero/Teams';
+
+
 export default function About() {
-    return (
-        <div>
-            <div className="bg-[url('/image/about.jpg')] bg-center bg-cover ">
-                <h1 className="container py-32 text-6xl font-semibold tracking-widest text-center text-white lg:py-64 lg:text-left ">WHO ARE WE?</h1>
+  return (
+    <div className="bg-gray-100 text-gray-900">
+      {/* Hero Section */}
+      <div className="relative bg-[url('/image/about.jpg')] bg-center bg-cover mt-16">
+        <div className="absolute inset-0 bg-black/50"></div>
+        <h1 className="relative container py-32 text-4xl font-extrabold tracking-wide text-center text-white md:py-64 md:text-6xl">
+          About Us
+        </h1>
+      </div>
 
+      {/* About Section */}
+      <div className="container py-12 lg:py-20">
+        <div className="text-center space-y-6 lg:space-y-8">
+          <h2 className="text-2xl md:text-3xl font-extrabold tracking-wide text-gray-900 lg:text-4xl">
+            Crafting Timeless Interior Designs with Purpose
+          </h2>
+          <p className="mt-4 text-md leading-relaxed text-gray-700 lg:text-lg lg:w-2/3 mx-auto">
+            At Addis Interior Design, we transform spaces into timeless works of art. Whether it’s your home, office, or commercial property, our expert team blends functionality with creativity to craft interiors that inspire and captivate. Experience bespoke designs tailored to your unique needs.
+          </p>
+        </div>
+
+
+        <div className="w-full h-full flex flex-col mt-8 lg:flex-row items-center justify-between gap-8 lg:gap-12 lg:mt-16">
+          {/* Image Section */}
+          <div className="relative overflow-hidden rounded-xl shadow-lg w-full lg:w-1/2">
+            <Image
+              src="/image/gallery1123.jpg"
+              width={700}
+              height={700}
+              alt="Addis Interior Design"
+              className="transition-transform duration-300 transform hover:scale-105"
+            />
+          </div>
+
+          {/* Text Section */}
+          <div className="flex flex-col justify-center w-full lg:w-1/2">
+            <h2 className="text-2xl font-semibold text-gray-900 lg:text-4xl">
+              Transforming Spaces with Elegance
+            </h2>
+            <p className="mt-3 text-xl font-medium text-gray-600 lg:text-2xl">
+              Designing Interiors That Inspire
+            </p>
+            <p className="mt-8 text-base leading-relaxed text-gray-800">
+              Addis Interior Design Company specializes in crafting sophisticated and functional spaces that reflect your personality and needs. With a team of experienced designers, we turn your vision into reality using innovative ideas and meticulous attention to detail.
+              <br />
+              <br />
+              <span className="font-medium text-gray-900">
+                Elevate your home or workspace with our bespoke designs and let us create the ambiance you've always dreamed of.
+              </span>
+            </p>
+            <div className="mt-12">
+              <Button href={'/contact'} title={'Contact Us'} />
             </div>
-            <div className="container ">
-                <div className="py-4 lg:py-14">
-                    <h2 className="p-4 text-3xl font-semibold text-center lg:p-20 lg:text-5xl">We have great idea & Interior Design</h2>
-                    <p className="text-2xl font-medium lg:w-1/2">
-                        The Digimax interior design company is a company that provides interior design services for homes, offices, apartments, and others. We provide the best interior design services for you. We have a team that is experienced in the field of interior.
-                    </p>
-                </div>
-                <div className="items-center lg:flex gap-x-8">
-                    <div className="w-full">
-                        <Image src="/image/gallery1123.jpg" width={700} height={700} alt="" className="" />
-                    </div>
-                    <div className="">
-                        <p className="pb-8 tracking-wide">
-                            We are an international Architects. We believe that today it is fundamental to totally rethink archi-tectural education. Confluence not only integrates new visions on society but also incorporates new methods and contemporary tools linked to creativity, production and communication. De-signed and handcrafted to hold and showcase my year two architecture portfolio, the unfolding box allows portfolio sheets…
-                            <br />
-                            <br />
-
-                            We are an international Architects. We believe that today it is fundamental to totally rethink archi-tectural education. Confluence not only integrates new visions on society but also incorporates new methods and contemporary tools linked to creativity, production and communication.
-                            <br />
-                            <br />
-                            <span className="text-xl font-extrabold tracking-tight">The backpiperARCH, we share a belief in the transformational power of people united in a common purpose.</span>
-                        </p>
-                        <a className="inline-flex items-center gap-1 px-6 py-3 text-sm text-white rounded-full shadow-lg bg-gray-950 hover:bg-gray-800 hover:ring-2 hover:ring-gray-950 ring-offset-2" href="">Read More <TbArrowUpRight className="text-xl" /> </a>
-
-
-                    </div>
-                </div>
-                <div className="lg:py-20">
-                    <div className="pt-8 pb-4">
-                        <h1 className="text-4xl font-bold tracking-wider text-center">TEAM</h1>
-                    </div>
-                    <div className="grid gap-20 py-8 lg:grid-cols-3">
-                        <div className="border-2 border-gray-500 ">
-                            <div className="-m-0.5 p-4 text-center transition hover:-translate-y-3 hover:-translate-x-3 aspect-square bg-zinc-100 ">
-                                <Image src="/image/profile2.jpg" width={200} height={200} alt="" className="mx-auto rounded-full " />
-                                <h2 className="py-4 text-2xl font-semibold " >BUILDING SURVEYS</h2>
-                                <p className="text-sm text-gray-400">
-                                    Creativity is the ability to generate, create, or discover new ideas, solutions, and possibilities.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="border-2 border-gray-500 ">
-                            <div className="-m-0.5 p-4 text-center transition hover:-translate-y-3 hover:-translate-x-3 aspect-square bg-zinc-100 ">
-                                <Image src="/image/profile1.jpg" width={200} height={200} alt="" className="mx-auto rounded-full " />
-                                <h2 className="py-4 text-2xl font-semibold " >BUILDING SURVEYS</h2>
-                                <p className="text-sm text-gray-400">
-                                    Creativity is the ability to generate, create, or discover new ideas, solutions, and possibilities.
-                                </p>
-                            </div>
-                        </div>
-                        <div className="border-2 border-gray-500 ">
-                            <div className="-m-0.5 p-4 text-center transition hover:-translate-y-3 hover:-translate-x-3 aspect-square bg-zinc-100 ">
-                                <Image src="/image/profile3.jpg" width={200} height={200} alt="" className="mx-auto rounded-full " />
-                                <h2 className="py-4 text-2xl font-semibold " >BUILDING SURVEYS</h2>
-                                <p className="text-sm text-gray-400">
-                                    Creativity is the ability to generate, create, or discover new ideas, solutions, and possibilities.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div >
-    )
+          </div>
+        </div>
+      </div>
+      <Teams />
+    </div>
+  );
 }

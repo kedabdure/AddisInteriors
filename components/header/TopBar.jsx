@@ -18,11 +18,11 @@ export default function TopBar({ navLinks, scrollPosition }) {
               key={href}
               href={href}
               className={`relative 
-          ${isActive && isAtTop ? "text-white font-normal" : ""}
-          ${isActive && !isAtTop ? "text-black font-normal" : ""}
+          ${isActive && isAtTop ? "text-white font-semibold" : ""}
+          ${isActive && !isAtTop ? "text-black font-semibold" : ""}
           ${!isActive && isAtTop ? "text-gray-300 hover:text-white" : ""}
           ${!isActive && !isAtTop ? "text-gray-600 hover:text-black" : ""}
-          font-medium transition-colors`}
+          transition-colors`}
             >
               {label}
             </Link>

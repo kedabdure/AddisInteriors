@@ -71,3 +71,29 @@ export const projects = [
   },
 ];
 
+
+export const teamMembers = [
+  {
+    id: 1,
+    name: "John Doe",
+    role: "Building Surveys",
+    description: "Creativity is the ability to generate, create, or discover new ideas, solutions, and possibilities.",
+    image: "/image/profile2.jpg",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    role: "Interior Design Expert",
+    description: "Expertise in designing interiors that reflect innovation, functionality, and aesthetic appeal.",
+    image: "/image/profile1.jpg",
+  },
+  {
+    id: 3,
+    name: "Alex Johnson",
+    role: "Architectural Consultant",
+    description: "Specialized in crafting architectural solutions that integrate modern and timeless styles.",
+    image: "/image/profile3.jpg",
+  },
+];
+
+
