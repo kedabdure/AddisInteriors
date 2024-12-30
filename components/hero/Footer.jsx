@@ -8,8 +8,8 @@ export default function Footer() {
   const [email, setEmail] = useState("");
 
   return (
-    <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-black text-gray-300">
-      <div className="container mx-auto grid gap-8 py-14 lg:grid-cols-4">
+    <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-950 text-gray-300">
+      <div className="container mx-auto grid gap-8 py-14 px-6 lg:grid-cols-4">
         {/* Newsletter Section */}
         <div className="min:w-[350px] text-center lg:text-left lg:max-w-md">
           <h2 className="text-xl font-semibold text-white mb-4">Stay Updated</h2>
@@ -21,7 +21,7 @@ export default function Footer() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <button className="absolute top-2 right-2 h-10 px-4 text-sm text-white bg-blue-600 rounded-full hover:bg-blue-700">
+            <button className="absolute top-2 right-2 h-10 px-4 text-sm text-white bg-zinc-500 rounded-full hover:bg-zinc-700">
               Subscribe
             </button>
           </div>
@@ -91,7 +91,7 @@ export default function Footer() {
           <p className="text-sm">
             &copy; {currentYear} AddisInterior. All rights reserved.
           </p>
-          <div>
+          <div className="text-sm">
             <Link className="mx-2 hover:underline" href="/privacy">
               Privacy
             </Link>

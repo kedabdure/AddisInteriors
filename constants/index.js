@@ -96,4 +96,23 @@ export const teamMembers = [
   },
 ];
 
+export const galleryImages = [
+  { id: 1, src: "/image/badroom.jpg", alt: "Bedroom" },
+  { id: 2, src: "/image/gallery2.jpg", alt: "Gallery 2" },
+  { id: 3, src: "/image/gallery.jpg", alt: "Gallery" },
+  { id: 4, src: "/image/swiper1.jpg", alt: "Swiper 1" },
+  { id: 5, src: "/image/gallery11.jpg", alt: "Gallery 11" },
+  { id: 6, src: "/image/living.jpg", alt: "Living Room" },
+  { id: 7, src: "/image/gallery14.jpg", alt: "Gallery 14" },
+  { id: 8, src: "/image/gallery15.jpg", alt: "Gallery 15" },
+  { id: 9, src: "/image/gallery12.jpg", alt: "Gallery 12" },
+  { id: 10, src: "/image/gallery7.jpg", alt: "Gallery 7" },
+  { id: 11, src: "/image/gallery11.jpg", alt: "Gallery 11" },
+  { id: 12, src: "/image/gallery3.jpg", alt: "Gallery 3" },
+  { id: 13, src: "/image/living.jpg", alt: "Living Room" },
+  { id: 14, src: "/image/gallery14.jpg", alt: "Gallery 14" },
+  { id: 15, src: "/image/gallery15.jpg", alt: "Gallery 15" },
+];
+
+
 

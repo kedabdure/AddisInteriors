@@ -61,14 +61,14 @@ export default function Panorama() {
       ref={containerRef}
       className='c-space'
     >
-      <div className="w-full text-center md:text-left mb-16">
-        <div className="flex flex-col md:flex-row justify-left items-center gap-3 mb-4">
-          <FaVrCardboard className="text-5xl text-black" />
+      <div className="w-full text-center md:text-center mb-16">
+        <div className="flex flex-col md:flex-col justify-left items-center gap-3 mb-4">
+          <FaVrCardboard className="text-6xl text-black" />
           <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-gray-800">
             Explore Our Projects in 360° VR
           </h1>
         </div>
-        <h2 className="text-lg md:text-lg lg:text-xl font-medium text-gray-700">
+        <h2 className="text-md md:text-lg font-medium text-gray-700">
           Immerse yourself in stunning panoramic VR views of our completed works.
         </h2>
       </div>
