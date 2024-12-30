@@ -14,7 +14,7 @@ export default function Projects() {
 
       {/* Project Showcase */}
       <div className="c-space">
-        <div className="container mx-auto grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:gap-8 md:py-12 lg:grid-cols-3">
+        <div className="container mx-auto grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {projects.map((project) => (
             <div
               key={project.id}
@@ -43,7 +43,7 @@ export default function Projects() {
         </div>
 
         {/* Call to Action */}
-        <div className="relative bg-gradient-to-r from-purple-200/30 via-pink-100/20 to-indigo-300/30 backdrop-blur-xl text-center m-4 p-20 flex flex-col gap-5 md:gap-8 rounded-md shadow-lg">
+        <div className="relative bg-gradient-to-r from-purple-200/30 via-pink-100/20 to-indigo-300/30 backdrop-blur-xl text-center c-space mt-8 md:mt-16 flex flex-col gap-5 md:gap-8 rounded-md shadow-lg">
           <h2 className="text-xl font-semibold md:text-4xl text-gray-900">
             Want to know more about our projects?
           </h2>
