@@ -13,6 +13,28 @@ const ProjectGallery = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [imagesWithDimensions, setImagesWithDimensions] = useState([]);
+  const [gridRowEndValue, setGridRowEndValue] = useState(25); // Default value for large screens
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setGridRowEndValue(25);
+      } else if (window.innerWidth >= 768) {
+        setGridRowEndValue(20);
+      } else {
+        setGridRowEndValue(15);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
 
   useEffect(() => {
     const loadImages = async () => {
@@ -36,6 +58,19 @@ const ProjectGallery = () => {
 
     loadImages();
   }, []);
+
+
+  useEffect(() => {
+    if (openModal) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [openModal])
 
   // Open Modal
   const handleOpenModal = (index) => {
@@ -68,19 +103,19 @@ const ProjectGallery = () => {
       {openModal && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 transition-all duration-300">
           <AiOutlineCloseCircle
-            className="absolute top-5 right-5 text-4xl text-white cursor-pointer hover:opacity-80"
+            className="absolute z-[51] top-[3%] right-[3%] text-4xl text-white cursor-pointer hover:opacity-80"
             onClick={handleCloseModal}
           />
           <AiOutlineLeftCircle
-            className="absolute left-5 top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80"
+            className="absolute z-[51] left-[3%] top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80"
             onClick={prevSlide}
           />
           <AiOutlineRightCircle
-            className="absolute right-5 top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80"
+            className="absolute z-[51] right-[3%] top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80"
             onClick={nextSlide}
           />
           <div className="w-[600px] max-w-screen-md max-h-[95vh] flex items-center justify-center">
-            <div className="relative w-full h-[90vh] transition-transform duration-300">
+            <div className="relative w-full h-[95vh] transition-transform duration-300">
               <Image
                 src={galleryImages[slideNumber].src}
                 alt={`Slide ${slideNumber + 1}`}
@@ -94,20 +129,15 @@ const ProjectGallery = () => {
 
       {/* Responsive Masonry Gallery */}
       <div
-        className="grid gap-4 mt-12"
-        style={{
-          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-          gridAutoRows: "10px", // Base row height
-        }}
-      >
+        className="grid gap-4 mt-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {imagesWithDimensions.map((image, index) => (
           <div
             key={index}
             className="relative overflow-hidden rounded-lg shadow-md"
             style={{
               gridRowEnd: `span ${Math.ceil(
-                (image.height / image.width) * 20
-              )}`, // Adjust multiplier to base row height
+                (image.height / image.width) * gridRowEndValue
+              )}`,
             }}
             onClick={() => handleOpenModal(index)}
           >
