@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   AiOutlineCloseCircle,
   AiOutlineLeftCircle,
@@ -113,36 +113,70 @@ const ProjectGallery = () => {
     },
   };
 
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 20,
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.9,
+      transition: { duration: 0.3 },
+    },
+  };
+
+  const imageMotionProps = {
+    initial: "hidden",
+    animate: "visible",
+    exit: "exit",
+    variants: modalVariants,
+  };
+
 
   return (
     <div className="w-full c-space">
-      {/* Modal for Full-Screen Image */}
-      {openModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 transition-all duration-300">
-          <AiOutlineCloseCircle
-            className="absolute z-[51] top-[3%] right-[3%] text-4xl text-white cursor-pointer hover:opacity-80"
-            onClick={handleCloseModal}
-          />
-          <AiOutlineLeftCircle
-            className="absolute z-[51] left-[3%] top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80"
-            onClick={prevSlide}
-          />
-          <AiOutlineRightCircle
-            className="absolute z-[51] right-[3%] top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80"
-            onClick={nextSlide}
-          />
-          <div className="w-[600px] max-w-screen-md max-h-[95vh] flex items-center justify-center">
-            <div className="relative w-full h-[95vh] transition-transform duration-300">
+      <AnimatePresence>
+        {openModal && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-40"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={modalVariants}
+          >
+            <AiOutlineCloseCircle
+              className="absolute top-4 right-4 text-4xl text-white cursor-pointer hover:opacity-80 z-50"
+              onClick={handleCloseModal}
+            />
+            <AiOutlineLeftCircle
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80 z-50"
+              onClick={prevSlide}
+            />
+            <AiOutlineRightCircle
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80 z-50"
+              onClick={nextSlide}
+            />
+            <motion.div
+              className="relative w-full max-w-screen-md h-[95vh]"
+              {...imageMotionProps}
+            >
               <Image
                 src={galleryImages[slideNumber].src}
                 alt={`Slide ${slideNumber + 1}`}
                 fill
                 className="object-contain"
               />
-            </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
 
       {/* Responsive Masonry Gallery */}
       <motion.div
