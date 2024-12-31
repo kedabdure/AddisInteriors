@@ -1,12 +1,37 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import {
+  AiOutlineCloseCircle,
+  AiOutlineLeftCircle,
+  AiOutlineRightCircle,
+} from "react-icons/ai";
 import { galleryImages } from "@/constants";
-import { useEffect, useState } from "react";
 
-export default function PinterestGallery() {
+const ProjectGallery = () => {
+  const [slideNumber, setSlideNumber] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
   const [imagesWithDimensions, setImagesWithDimensions] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [gridRowEndValue, setGridRowEndValue] = useState(25); // Default value for large screens
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setGridRowEndValue(25);
+      } else if (window.innerWidth >= 768) {
+        setGridRowEndValue(20);
+      } else {
+        setGridRowEndValue(15);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
 
   useEffect(() => {
     const loadImages = async () => {
@@ -31,78 +56,99 @@ export default function PinterestGallery() {
     loadImages();
   }, []);
 
-  // Handle the click event to select an image
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
+
+  useEffect(() => {
+    if (openModal) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [openModal])
+
+  // Open Modal
+  const handleOpenModal = (index) => {
+    setSlideNumber(index);
+    setOpenModal(true);
   };
 
-  // Close the gallery when the overlay is clicked
-  const handleOverlayClick = () => {
-    setSelectedImage(null);
+  // Close Modal
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  // Previous Image
+  const prevSlide = () => {
+    setSlideNumber((prev) =>
+      prev === 0 ? galleryImages.length - 1 : prev - 1
+    );
+  };
+
+  // Next Image
+  const nextSlide = () => {
+    setSlideNumber((prev) =>
+      prev + 1 === galleryImages.length ? 0 : prev + 1
+    );
   };
 
   return (
-    <div>
-      {/* Gallery */}
+    <div className="w-full c-space">
+      {/* Modal for Full-Screen Image */}
+      {openModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 transition-all duration-300">
+          <AiOutlineCloseCircle
+            className="absolute z-[51] top-[3%] right-[3%] text-4xl text-white cursor-pointer hover:opacity-80"
+            onClick={handleCloseModal}
+          />
+          <AiOutlineLeftCircle
+            className="absolute z-[51] left-[3%] top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80"
+            onClick={prevSlide}
+          />
+          <AiOutlineRightCircle
+            className="absolute z-[51] right-[3%] top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80"
+            onClick={nextSlide}
+          />
+          <div className="w-[600px] max-w-screen-md max-h-[95vh] flex items-center justify-center">
+            <div className="relative w-full h-[95vh] transition-transform duration-300">
+              <Image
+                src={galleryImages[slideNumber].src}
+                alt={`Slide ${slideNumber + 1}`}
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Responsive Masonry Gallery */}
       <div
-        className="grid gap-4 c-space mt-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        style={{
-          gridAutoRows: "minmax(200px, auto)",
-        }}
-      >
-        {imagesWithDimensions.map((image) => (
+        className="grid gap-4 mt-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {imagesWithDimensions.map((image, index) => (
           <div
-            key={image.id}
-            className="w-full relative overflow-hidden rounded-lg shadow-md"
+            key={index}
+            className="relative overflow-hidden rounded-lg shadow-md"
             style={{
-              gridRowEnd: `span ${Math.ceil(image.height / image.width * 1)}`,
+              gridRowEnd: `span ${Math.ceil(
+                (image.height / image.width) * gridRowEndValue
+              )}`,
             }}
+            onClick={() => handleOpenModal(index)}
           >
             <Image
               src={image.src}
-              alt={image.alt}
+              alt={`Gallery Image ${index + 1}`}
               fill
-              className="rounded-lg transition-transform duration-300 transform hover:scale-105 cursor-pointer"
-              onClick={() => handleImageClick(image)}
+              className="object-cover"
             />
           </div>
         ))}
       </div>
-
-      {/* Overlay and Full Image */}
-      {selectedImage && (
-        <div
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-50 transition-all duration-500 ease-in-out"
-          onClick={handleOverlayClick}
-          style={{
-            cursor: "pointer",
-          }}
-        >
-          <div
-            className="relative transition-all duration-500 ease-in-out transform"
-            style={{
-              maxWidth: "80vw", // Ensures the image doesn't take up the full width
-              maxHeight: "80vh",
-              objectFit: "contain" // Ensures the image doesn't take up the full height
-            }}
-          >
-            <Image
-              src={selectedImage.src}
-              alt={selectedImage.alt}
-              width={selectedImage.width}
-              height={selectedImage.height}
-              className="rounded-lg object-contain" // Keeps the aspect ratio intact
-            />
-            {/* Close button */}
-            <button
-              onClick={handleOverlayClick}
-              className="absolute top-4 right-4 text-white text-2xl bg-transparent border-none cursor-pointer"
-            >
-              X
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
-}
+};
+
+export default ProjectGallery;
