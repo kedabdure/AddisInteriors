@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -9,14 +9,15 @@ import {
   AiOutlineRightCircle,
 } from "react-icons/ai";
 import { galleryImages } from "@/constants";
-import { frame } from "framer-motion";
+
 
 const ProjectGallery = () => {
+  const galleryRef = useRef()
+  const imageRef = useRef()
   const [slideNumber, setSlideNumber] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [imagesWithDimensions, setImagesWithDimensions] = useState([]);
-  const [gridRowEndValue, setGridRowEndValue] = useState(25); // Default value for large screens
-
+  const [gridRowEndValue, setGridRowEndValue] = useState(25);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -60,16 +61,25 @@ const ProjectGallery = () => {
 
 
   useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (galleryRef.current && !imageRef.current.contains(e.target)) {
+        setOpenModal(false)
+      }
+    };
+
     if (openModal) {
-      document.body.style.overflow = 'hidden'
+      document.addEventListener("click", handleClickOutside);
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto'
+      document.body.style.overflow = "auto";
     }
 
     return () => {
-      document.body.style.overflow = 'auto'
-    }
-  }, [openModal])
+      document.removeEventListener("click", handleClickOutside);
+      document.body.style.overflow = "auto";
+    };
+  }, [openModal]);
+
 
   // Open Modal
   const handleOpenModal = (index) => {
@@ -144,6 +154,7 @@ const ProjectGallery = () => {
       <AnimatePresence>
         {openModal && (
           <motion.div
+            ref={galleryRef}
             className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-40"
             initial="hidden"
             animate="visible"
@@ -163,6 +174,7 @@ const ProjectGallery = () => {
               onClick={nextSlide}
             />
             <motion.div
+              ref={imageRef}
               className="relative w-full max-w-screen-md h-[95vh]"
               {...imageMotionProps}
             >
