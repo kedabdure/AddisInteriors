@@ -7,6 +7,9 @@ import {
   AiOutlineLeftCircle,
   AiOutlineRightCircle,
 } from "react-icons/ai";
+import { motion } from "framer-motion";
+
+
 import { galleryImages } from "@/constants";
 
 const ProjectGallery = () => {
@@ -97,6 +100,23 @@ const ProjectGallery = () => {
     );
   };
 
+  const itemVariants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 80,
+      damping: 10,
+      duration: 0.6,
+    },
+  },
+};
+
   return (
     <div className="w-full p-4">
       {/* Modal for Full-Screen Image */}
@@ -128,7 +148,7 @@ const ProjectGallery = () => {
       )}
 
       {/* Responsive Masonry Gallery */}
-      <div
+      <motion.div
         className="grid gap-4 mt-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {imagesWithDimensions.map((image, index) => (
           <div
@@ -140,6 +160,10 @@ const ProjectGallery = () => {
               )}`,
             }}
             onClick={() => handleOpenModal(index)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={itemVariants}
           >
             <Image
               src={image.src}
@@ -149,7 +173,7 @@ const ProjectGallery = () => {
             />
           </div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };

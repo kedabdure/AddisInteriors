@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import {
   AiOutlineCloseCircle,
   AiOutlineLeftCircle,
   AiOutlineRightCircle,
 } from "react-icons/ai";
 import { galleryImages } from "@/constants";
+import { frame } from "framer-motion";
 
 const ProjectGallery = () => {
   const [slideNumber, setSlideNumber] = useState(0);
@@ -63,7 +65,7 @@ const ProjectGallery = () => {
     } else {
       document.body.style.overflow = 'auto'
     }
-    
+
     return () => {
       document.body.style.overflow = 'auto'
     }
@@ -93,6 +95,24 @@ const ProjectGallery = () => {
       prev + 1 === galleryImages.length ? 0 : prev + 1
     );
   };
+
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 80,
+        damping: 30,
+        duration: 0.6,
+      },
+    },
+  };
+
 
   return (
     <div className="w-full c-space">
@@ -125,10 +145,10 @@ const ProjectGallery = () => {
       )}
 
       {/* Responsive Masonry Gallery */}
-      <div
+      <motion.div
         className="grid gap-4 mt-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {imagesWithDimensions.map((image, index) => (
-          <div
+          <motion.div
             key={index}
             className="relative overflow-hidden rounded-lg shadow-md"
             style={{
@@ -137,6 +157,10 @@ const ProjectGallery = () => {
               )}`,
             }}
             onClick={() => handleOpenModal(index)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: .2 }}
+            variants={itemVariants}
           >
             <Image
               src={image.src}
@@ -144,9 +168,9 @@ const ProjectGallery = () => {
               fill
               className="object-cover"
             />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
