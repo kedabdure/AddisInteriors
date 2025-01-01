@@ -5,6 +5,7 @@ import { TbArrowUpRight } from 'react-icons/tb';
 import { Suspense } from 'react';
 import { useMediaQuery } from "react-responsive";
 import { motion } from 'framer-motion';
+import { motionImageProps, motionTextProps, motionBoxProps } from "@/lib/motionLib";
 
 import { Canvas } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
@@ -23,51 +24,6 @@ export default function HeroSection() {
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
   const isSmall = useMediaQuery({ maxWidth: 440 })
   const sizes = calculateSizes(isSmall, isMobile, isTablet);
-
-
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1, y: 0,
-      transition: {
-        delay: 0.3,
-        duration: 1,
-      }
-    }
-  }
-  const canvasVariants = {
-    hidden: { opacity: 1, x: 50 },
-    visible: {
-      opacity: 1, x: 0,
-      transition: {
-        delay: 0.3,
-        duration: 1,
-      }
-    }
-  }
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1, y: 0,
-      transition: {
-        delay: 0.3,
-        duration: 1,
-      }
-    }
-  }
-
-  const motionBoxProps = {
-    initial: "hidden",
-    whileInView: "visible",
-    variants: sectionVariants
-  }
-
-  const motionTextProps = {
-    initial: "hidden",
-    whileInView: "visible",
-    variants: textVariants
-  }
 
   return (
     <motion.div className="relative flex flex-col lg:flex-row items-center justify-between h-screen px-5 sm:px-14 md:px-32 lg:px-14">
@@ -135,11 +91,8 @@ export default function HeroSection() {
 
 
       {/* Right Content: 3D Model */}
-      <motion.div
+      <div
         className="w-full lg:w-[550px] xl:w-[670px] h-[600px] md:h-[300px] lg:h-full flex items-center justify-center"
-        initial="hidden"
-        whileInView="visible"
-        variants={canvasVariants}
       >
         <Canvas className="w-full h-full">
           <ambientLight intensity={1} />
@@ -177,7 +130,7 @@ export default function HeroSection() {
             </group>
           </Suspense>
         </Canvas>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

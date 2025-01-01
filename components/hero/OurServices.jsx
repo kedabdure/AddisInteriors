@@ -3,47 +3,14 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Opacity } from '@mui/icons-material'
+import { motionTextProps, motionBoxProps } from "@/lib/motionLib";
 
 const OurServices = () => {
-
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1, y: 0,
-      transition: {
-        delay: 0.3,
-        duration: 1,
-      }
-    }
-  }
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1, y: 0,
-      transition: {
-        delay: 0.3,
-        duration: 1,
-        ease: 'easeOut'
-      }
-    }
-  }
-
-  // create a props for the motion.div
-  const motionBoxProps = {
-    initial: "hidden",
-    whileInView: "visible",
-    variants: sectionVariants
-  }
-
   return (
     <section className="w-full bg-zinc-50">
       <motion.div
         className="flex justify-left sm:justify-normal gap-3 items-center mb-10 md:mb-16"
-        initial="hidden"
-        whileInView="visible"
-        variants={textVariants}
+        {...motionTextProps}
       >
         <div className="w-12 md:w-16 lg:w-18 h-[3px] bg-black"></div>
         <h1 className="title-text">Our Services</h1>
