@@ -1,21 +1,19 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Grid, Typography, Box, Container, TextField, Alert, Button, CircularProgress } from '@mui/material';
-import { MuiTelInput } from 'mui-tel-input';
-import Swal from 'sweetalert2';
-import emailjs from '@emailjs/browser';
-import { useRouter } from 'next/navigation';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
-import './contact.css';
+import { sendEmail } from "@/lib/sendEmail";
+import LocationMap from "@/lib/LocationMap";
+import Image from "next/image";
 
 const initialValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  companyName: '',
-  phone: '',
-  projectDescription: '',
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  message: "",
 };
 
 const Contact = () => {
@@ -30,23 +28,23 @@ const Contact = () => {
     const internationalPhoneRegex = /^\+2519\d{8}$/;
 
     if (!values.firstName) {
-      errors.firstName = 'First name is required!';
+      errors.firstName = "First name is required!";
     }
     if (!values.lastName) {
-      errors.lastName = 'Last name is required!';
-    }
-    if (!values.companyName) {
-      errors.companyName = 'Company name is required!';
+      errors.lastName = "Last name is required!";
     }
     if (!values.email) {
-      errors.email = 'Email is required!';
+      errors.email = "Email is required!";
     } else if (!emailRegex.test(values.email)) {
-      errors.email = 'Invalid email format!';
+      errors.email = "Invalid email format!";
+    }
+    if (!values.message) {
+      errors.message = "Message is required!";
     }
     if (!values.phone) {
-      errors.phone = 'Phone number is required!';
+      errors.phone = "Phone number is required!";
     } else if (!internationalPhoneRegex.test(values.phone)) {
-      errors.phone = 'Invalid phone number format (+251)';
+      errors.phone = "Invalid phone number format (+251)";
     }
 
     setFormErrors(errors);
@@ -59,13 +57,7 @@ const Contact = () => {
       ...formValues,
       [name]: value,
     });
-    if (formErrors[name]) formErrors[name] = '';
-  };
-
-  const handlePhoneChange = (value) => {
-    const sanitizedValue = value.replace(/\s+/g, '');
-    setFormValues({ ...formValues, phone: sanitizedValue });
-    if (formErrors.phone) formErrors.phone = '';
+    if (formErrors[name]) formErrors[name] = "";
   };
 
   const handleSubmit = async (e) => {
@@ -76,43 +68,36 @@ const Contact = () => {
       try {
         setIsSubmitting(true);
 
-        const serviceId = process.env.NEXT_PUBLIC_SERVICE_ID;
-        const templateId = process.env.NEXT_PUBLIC_TEMPLATE_ID;
-        const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY;
-
         const templateParams = {
-          recipient_name: 'Nexa Addis',
+          recipient_name: "Addis Interior",
           from_email: formValues.email,
           first_name: formValues.firstName,
           last_name: formValues.lastName,
-          company_name: formValues.companyName,
           phone_number: formValues.phone,
-          message: formValues.projectDescription,
+          message: formValues.message,
         };
 
-        // Sending the email
-        const response = await emailjs.send(serviceId, templateId, templateParams, publicKey);
-        setFormValues(initialValues);
+        const res = sendEmail(templateParams);
 
-        // Display success message
-        Swal.fire({
-          title: 'Good job!',
-          text: 'Thank you for reaching out! We will contact you soon.',
-          icon: 'success',
-          confirmButtonColor: '#fb8122',
-          background: '#f7f7f7',
-        }).then((res) => { if (res.isConfirmed) router.push('/'); });
-
-        console.log('Email successfully sent:', response);
+        if (res === true) {
+          Swal.fire({
+            title: "Good job!",
+            text: "Thank you for reaching out! We will contact you soon.",
+            icon: "success",
+            confirmButtonColor: "#fb8122",
+            background: "#f7f7f7",
+          }).then((res) => {
+            if (res.isConfirmed) router.push("/");
+          });
+        }
       } catch (error) {
-        console.error('Error occurred while submitting the form:', error);
+        console.error("Error occurred while submitting the form:", error);
 
-        // Display error message
         Swal.fire({
-          title: 'Error!',
-          text: 'Something went wrong, please try again later.',
-          icon: 'error',
-          confirmButtonColor: '#fb8122',
+          title: "Error!",
+          text: "Something went wrong, please try again later.",
+          icon: "error",
+          confirmButtonColor: "#fb8122",
         });
       } finally {
         setIsSubmitting(false);
@@ -121,226 +106,179 @@ const Contact = () => {
   };
 
   return (
-    <Box sx={{ position: 'relative' }}>
-      {/* Hero Section */}
-      <Box sx={{
-        backgroundImage: 'url("https://i.imgur.com/KcHaWd7.jpeg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        height: '25rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        color: 'white',
-        position: 'relative',
-        padding: { xs: '1rem', sm: '2rem', md: '3rem' }, // Reduced padding
-        textAlign: { xs: 'center', md: 'left' }
-      }}>
-        <Box sx={{
-          position: 'absolute',
-          top: "0",
-          left: "0",
-          right: "0",
-          background: 'linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2))',
-          height: '100%',
-          width: '100%',
-        }} />
-        <Typography variant="h2" m="auto" pt="3rem" component="h1" sx={{ fontSize: { xs: "1.5rem", md: "2.5rem", lg: "3.5rem" }, fontWeight: 'bold', zIndex: 1 }}>
-          Contact Us
-        </Typography>
-      </Box>
+    <div className="relative w-full min-h-screen">
+      <div className="bg-[url('/image/about.jpg')] bg-cover bg-center h-[65vh] flex items-center justify-center text-white relative mt-16">
+        <div className="absolute top-0 left-0 right-0 bg-gradient-to-t from-black/50 to-black/20 h-full w-full"></div>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold z-10">Contact Us</h1>
+      </div>
 
-      <Container sx={{ py: { xs: 2, sm: 3, md: 4 } }}>
-        <Grid container spacing={4}>
+      <div className="c-space flex flex-col md:flex-row gap-20 md:gap-12">
+        <div className="w-full md:w-[40%]">
+          {/* <div className="mb-6">
+            <h2 className="text-xl md:text-2xl font-semibold mb-8">Contact Information</h2>
+          </div> */}
 
-          {/* Contact Information Section */}
-          <Grid item xs={12} md={6}>
-            <Box sx={{ p: { xs: 1, sm: 2, md: 3 }, backgroundColor: '#fff', height: '100%' }}>
-              <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: '800', mb: 3, fontSize: { xs: '1.25rem', sm: '1.75rem', md: '2rem' } }}>
-                Contact Information
-              </Typography>
-              <Box>
-                <Typography variant="body1" sx={{ mb: 1 }}>
-                  <strong>Phone:</strong> +251 912 345 678
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 1 }}>
-                  <strong>Email:</strong> contact@nexaaddis.com
-                </Typography>
-                <Typography variant="body1">
-                  <strong>Address:</strong> Addis Ababa, Ethiopia
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
+          <div className="flex flex-col gap-8">
+            <div className="w-full flex items-center gap-6 bg-zinc-50 shadow-sm p-5 sm:flex-row sm:items-center sm:gap-4 lg:p-7">
+              <div className="w-14 h-14 bg-blue-100 p-3 md:p-4 rounded-full flex items-center justify-center">
+                <Image width={24} height={24} src="/icons/phone.svg" alt="Phone Icon" />
+              </div>
+              <div>
+                <p className="text-md font-semibold text-gray-900">
+                  Phone Number
+                </p>
+                <p className="mt-1 text-sm md:text-[.9rem] font-medium text-gray-700 tracking-wide">
+                  +251 911 111 111
+                </p>
+              </div>
+            </div>
 
-          {/* Contact Form Section */}
-          <Grid item xs={12} md={6}>
-            <Box sx={{ p: { xs: 1, sm: 2, md: 3 }, backgroundColor: '#fff' }}>
-              <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: '800', mb: 3, fontSize: { xs: '1.25rem', sm: '1.75rem', md: '2rem' } }}>
-                Let's get <span style={{ color: '#fb8122' }}>in touch!</span>
-              </Typography>
+            <div className="w-full flex items-center gap-6 bg-zinc-50 shadow-sm p-5 sm:flex-row sm:items-center sm:gap-4 lg:p-7">
+              <div className="w-14 h-14 bg-blue-100 p-3 md:p-4 rounded-full flex items-center justify-center">
+                <Image width={26} height={26} src="/icons/email.svg" alt="Phone Icon" />
+              </div>
+              <div>
+                <p className="text-md font-semibold text-gray-900">
+                  Email
+                </p>
+                <p className="mt-1 text-sm md:text-[.9rem] font-medium text-gray-700 tracking-wide">
+                  contact@addisinterior.com
+                </p>
+              </div>
+            </div>
 
-              <Grid container spacing={3} component="form" onSubmit={handleSubmit}>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    label="First Name*"
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    value={formValues.firstName}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    InputLabelProps={{ sx: { color: '#3a3f45' } }}
-                    InputProps={{
-                      sx: {
-                        '&::placeholder': { color: '#a0a0a0' },
-                        '&.Mui-focused fieldset': { borderColor: '#fb8122' },
-                      },
-                    }}
-                  />
-                  {formErrors.firstName && (
-                    <Alert severity="error" sx={{ mt: 1, p: 0, backgroundColor: 'transparent', color: '#f44336' }}>
-                      {formErrors.firstName}
-                    </Alert>
-                  )}
-                </Grid>
+            <div className="w-full flex items-center gap-6 bg-zinc-50 shadow-sm p-5 sm:flex-row sm:items-center sm:gap-4 lg:p-7">
+              <div className="w-14 h-14 bg-blue-100 p-3 md:p-4 rounded-full flex items-center justify-center">
+                <Image width={24} height={24} src="/icons/location.svg" alt="Phone Icon" />
+              </div>
+              <div>
+                <p className="text-md font-semibold text-gray-900">
+                  Address
+                </p>
+                <p className="mt-1 text-sm md:text-[.9rem] font-medium text-gray-700 tracking-wide">
+                  Addis Ababa, Ethiopia
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    label="Last Name*"
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    value={formValues.lastName}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    InputLabelProps={{ sx: { color: '#3a3f45' } }}
-                    InputProps={{
-                      sx: {
-                        '&::placeholder': { color: '#a0a0a0' },
-                        '&.Mui-focused fieldset': { borderColor: '#fb8122' },
-                      },
-                    }}
-                  />
-                  {formErrors.lastName && (
-                    <Alert severity="error" sx={{ mt: 1, p: 0, backgroundColor: 'transparent', color: '#f44336' }}>
-                      {formErrors.lastName}
-                    </Alert>
-                  )}
-                </Grid>
+        <div className="flex-1 bg-transparent md:bg-zinc-50 py-8 px-0 md:px-10">
+          {/* <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12">
+            Let's get <span className="text-gray-900">in touch!</span>
+          </h2> */}
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm md:text-[.9rem] font-medium mb-2">
+                  First Name*
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formValues.firstName}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md p-3"
+                />
+                {formErrors.firstName && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {formErrors.firstName}
+                  </p>
+                )}
+              </div>
 
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    label="Business Email*"
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="example@gmail.com"
-                    value={formValues.email}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    InputLabelProps={{ sx: { color: '#3a3f45' } }}
-                    InputProps={{
-                      sx: {
-                        '&::placeholder': { color: '#a0a0a0' },
-                        '&.Mui-focused fieldset': { borderColor: '#fb8122' },
-                      },
-                    }}
-                  />
-                  {formErrors.email && (
-                    <Alert severity="error" sx={{ mt: 1, p: 0, backgroundColor: 'transparent', color: '#f44336' }}>
-                      {formErrors.email}
-                    </Alert>
-                  )}
-                </Grid>
+              <div>
+                <label className="block text-sm md:text-[.9rem] font-medium mb-2">
+                  Last Name*
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formValues.lastName}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md p-3"
+                />
+                {formErrors.lastName && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {formErrors.lastName}
+                  </p>
+                )}
+              </div>
+            </div>
 
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    label="Company Name*"
-                    id="companyName"
-                    name="companyName"
-                    type="text"
-                    value={formValues.companyName}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    InputLabelProps={{ sx: { color: '#3a3f45' } }}
-                    InputProps={{
-                      sx: {
-                        '&::placeholder': { color: '#a0a0a0' },
-                        '&.Mui-focused fieldset': { borderColor: '#fb8122' },
-                      },
-                    }}
-                  />
-                  {formErrors.companyName && (
-                    <Alert severity="error" sx={{ mt: 1, p: 0, backgroundColor: 'transparent', color: '#f44336' }}>
-                      {formErrors.companyName}
-                    </Alert>
-                  )}
-                </Grid>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm md:text-[.9rem] font-medium mb-2">
+                  Business Email*
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formValues.email}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md p-3"
+                />
+                {formErrors.email && (
+                  <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
+                )}
+              </div>
 
-                <Grid item xs={12} md={6}>
-                  <MuiTelInput
-                    label="Phone Number*"
-                    id="phone"
-                    name="phone"
-                    value={formValues.phone}
-                    onChange={handlePhoneChange}
-                    defaultCountry="ET"
-                    size="small"
-                    fullWidth
-                    sx={{ mb: 2 }}
-                  />
-                  {formErrors.phone && (
-                    <Alert severity="error" sx={{ mt: 1, p: 0, backgroundColor: 'transparent', color: '#f44336' }}>
-                      {formErrors.phone}
-                    </Alert>
-                  )}
-                </Grid>
+              <div>
+                <label className="block text-sm md:text-[.9rem] font-medium mb-2">
+                  Phone Number*
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  value={formValues.phone}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md p-3"
+                />
+                {formErrors.phone && (
+                  <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>
+                )}
+              </div>
+            </div>
 
-                <Grid item xs={12}>
-                  <TextField
-                    label="Project Description"
-                    id="projectDescription"
-                    name="projectDescription"
-                    type="text"
-                    value={formValues.projectDescription}
-                    onChange={handleChange}
-                    size="small"
-                    fullWidth
-                    multiline
-                    rows={4}
-                    InputLabelProps={{ sx: { color: '#3a3f45' } }}
-                    InputProps={{
-                      sx: {
-                        '&::placeholder': { color: '#a0a0a0' },
-                        '&.Mui-focused fieldset': { borderColor: '#fb8122' },
-                      },
-                    }}
-                  />
-                </Grid>
+            <div>
+              <label className="block text-sm md:text-[.9rem] font-medium mb-2">
+                Your message*
+              </label>
+              <textarea
+                name="message"
+                value={formValues.message}
+                onChange={handleChange}
+                rows="4"
+                className="w-full border border-gray-300 rounded-md p-3"
+              />
+              {formErrors.message && (
+                <p className="text-red-500 text-sm mt-1">{formErrors.message}</p>
+              )}
+            </div>
 
-                <Grid item xs={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{ bgcolor: '#fb8122', color: '#fff', ':hover': { bgcolor: '#e76f2b' } }}
-                    fullWidth
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? <CircularProgress size={24} /> : 'Send Message'}
-                  </Button>
-                </Grid>
-              </Grid>
-            </Box>
-          </Grid>
+            <div>
+              <button
+                type="submit"
+                className="w-full bg-gray-900 text-white py-3 rounded-md hover:bg-gray-700 mt-6"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
 
-        </Grid>
-      </Container>
-    </Box>
+      <div className="c-space bg-zinc-50">
+        <div className="flex flex-col gap-3 text-center">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">Find Us On Google Map</h1>
+          <p>this is our office location you can visit us when ever you want</p>
+        </div>
+        <div className="bg-white shadow-lg w-full h-[60vh] md:h-[70vh] lg:h-[75vh] mt-10">
+          <LocationMap />
+        </div>
+      </div>
+    </div>
   );
 };
 

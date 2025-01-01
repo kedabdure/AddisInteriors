@@ -21,7 +21,7 @@ export default function TopBar({ navLinks, scrollPosition }) {
           ${isActive && isAtTop ? "text-white font-semibold" : ""}
           ${isActive && !isAtTop ? "text-black font-semibold" : ""}
           ${!isActive && isAtTop ? "text-gray-300 hover:text-white" : ""}
-          ${!isActive && !isAtTop ? "text-gray-600 hover:text-black" : ""}
+          ${!isActive && !isAtTop ? "text-gray-700 hover:text-bold" : ""}
           transition-colors`}
             >
               {label}
@@ -32,7 +32,9 @@ export default function TopBar({ navLinks, scrollPosition }) {
 
       <Link
         href="/contact"
-        className={`inline-flex items-center px-5 py-1.5 font-medium border rounded-sm shadow ${scrollPosition === 0 && pathname === '/' ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-950 hover:bg-gray-200"} text-gray-300 border-gray-400  hover:text-white transition-colors`}
+        className={`inline-flex items-center px-5 py-1.5 font-medium border rounded-sm shadow
+         ${scrollPosition === 0 && pathname === '/' ?
+            "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-950 hover:bg-gray-200"} border-gray-400 transition-colors`}
       >
         Contact Us <TbArrowUpRight className="w-5 h-5 ml-2" />
       </Link>

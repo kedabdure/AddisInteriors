@@ -12,11 +12,12 @@ export default function Projects() {
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-[url('/image/backgroundproject.jpg')] bg-center bg-cover">
-        <motion.h1 className="container mx-auto px-4 py-48 mt-12 text-center text-4xl font-extrabold tracking-widest text-white sm:text-5xl md:text-6xl lg:py-72"
+      <div className="bg-[url('/image/backgroundproject.jpg')] h-[65vh] flex items-center justify-center mt-16 bg-center bg-cover">
+        <motion.h1
+          className="relative text-4xl font-extrabold tracking-wide text-white md:text-5xl"
           {...motionTextProps}
         >
-          Our Projects
+          Projects
         </motion.h1>
       </div>
 

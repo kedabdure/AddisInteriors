@@ -12,10 +12,10 @@ export default function About() {
       className="bg-gray-100 text-gray-900"
     >
       {/* Hero Section */}
-      <div className="relative bg-[url('/image/about.jpg')] bg-center bg-cover mt-16">
+      <div className="relative bg-[url('/image/about.jpg')] bg-center bg-cover flex items-center justify-center h-[65vh] mt-16">
         <div className="absolute inset-0 bg-black/50"></div>
         <motion.h1
-          className="relative container py-32 text-4xl font-extrabold tracking-wide text-center text-white md:py-64 md:text-6xl"
+          className="relative text-4xl font-extrabold tracking-wide text-white md:text-5xl"
           {...motionTextProps}
         >
           About Us
@@ -29,7 +29,7 @@ export default function About() {
       >
         <div className="text-center space-y-6 lg:space-y-8">
           <motion.h2
-            className="text-2xl md:text-4xl font-extrabold tracking-wide text-gray-900 lg:text-5xl"
+            className="text-2xl md:text-4xl font-extrabold tracking-wide text-gray-900 lg:text-4xl"
             {...motionTextProps}
           >
             Crafting Timeless Interior Designs with Purpose
