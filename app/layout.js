@@ -1,6 +1,7 @@
 import Footer from "@/components/hero/Footer";
 import Header from "@/components/header/Header";
 import { Inter } from "next/font/google";
+import { AnimatePresence } from "framer-motion";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -13,11 +14,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Header />
-        {children}
-        <Footer />
-      </body>
+      <AnimatePresence mode="wait">
+        <body className={inter.className}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </AnimatePresence>
     </html>
   );
 }

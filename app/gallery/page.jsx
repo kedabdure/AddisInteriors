@@ -172,7 +172,7 @@ const ProjectGallery = () => {
   };
 
   return (
-    <div className="w-full c-space">
+    <div className="w-full min-h-screen c-space">
       <AnimatePresence>
         {openModal && (
           <motion.div
