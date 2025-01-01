@@ -4,6 +4,7 @@ import Link from "next/link";
 import { TbArrowUpRight } from 'react-icons/tb';
 import { Suspense } from 'react';
 import { useMediaQuery } from "react-responsive";
+import { motion } from 'framer-motion';
 
 import { Canvas } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
@@ -21,11 +22,51 @@ export default function HeroSection() {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
   const isSmall = useMediaQuery({ maxWidth: 440 })
-
   const sizes = calculateSizes(isSmall, isMobile, isTablet);
 
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1, y: 0,
+      transition: {
+        delay: 0.3,
+        duration: 1,
+      }
+    }
+  }
+  const canvasVariants = {
+    hidden: { opacity: 1, x: 50 },
+    visible: {
+      opacity: 1, x: 0,
+      transition: {
+        delay: 0.3,
+        duration: 1,
+      }
+    }
+  }
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1, y: 0,
+      transition: {
+        delay: 0.3,
+        duration: 1,
+        ease: 'easeOut'
+      }
+    }
+  }
+
+  // create a props for the motion.div
+  const motionBoxProps = {
+    initial: "hidden",
+    whileInView: "visible",
+    variants: sectionVariants
+  }
+
   return (
-    <div className="relative flex flex-col lg:flex-row items-center justify-between h-screen px-5 sm:px-14 md:px-32 lg:px-14">
+    <motion.div className="relative flex flex-col lg:flex-row items-center justify-between h-screen px-5 sm:px-14 md:px-32 lg:px-14">
       <div className='absolute inset-0 z-[-1]'>
         <img src="/hero2.jpeg" alt="hero image" className='w-full h-full object-cover brightness-75' />
       </div>
@@ -33,7 +74,7 @@ export default function HeroSection() {
       {/* Left Content: Navigation + Hero Text */}
       <div className="w-full h-full flex flex-col sm lg:w-1/2 text-center justify-center lg:text-left mt-28 lg:mt-0">
         <div className="w-full h-full flex flex-col gap-12 lg:gap-4 justify-center">
-          <div>
+          <motion.div {...motionBoxProps}>
             <p className="text-gray-200 tracking-widest font-thin text-sm md:text-lg mb-6 lg:mb-6">ADDISINTERIOR</p>
             <h1 className="text-gray-100 text-3xl md:text-4xl lg:text-5xl max-w-[90%] mx-auto sm:mx-0 font-semibold mb-4 lg:mb-6" style={{ lineHeight: "1.4" }}>
               Interior Design Expert In Ethiopia
@@ -42,9 +83,12 @@ export default function HeroSection() {
               Discover exceptional interior design.
               Transform your home with our stylish and functional solutions.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col gap-4 md:gap-4 md:flex-row justify-center lg:justify-start">
+          <motion.div
+            className="flex flex-col gap-4 md:gap-4 md:flex-row justify-center lg:justify-start"
+            {...motionBoxProps}
+          >
             <Link
               href="/contact"
               className="inline-flex mx-auto md:mx-0 max-w-[170px] items-center px-5 py-2 md:px-6 md:py-3 text-sm font-medium bg-white text-black border border-transparent rounded-sm shadow-md transition-transform duration-300 ease-in-out hover:scale-105"
@@ -59,12 +103,17 @@ export default function HeroSection() {
               Our Works
               <TbArrowUpRight className="w-5 h-5 ml-2" />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Right Content: 3D Model */}
-      <div className="w-full lg:w-[550px] xl:w-[670px] h-[600px] md:h-[300px] lg:h-full flex items-center justify-center">
+      <motion.div
+        className="w-full lg:w-[550px] xl:w-[670px] h-[600px] md:h-[300px] lg:h-full flex items-center justify-center"
+        initial="hidden"
+        whileInView="visible"
+        variants={canvasVariants}
+      >
         <Canvas className="w-full h-full">
           <ambientLight intensity={1} />
           <directionalLight intensity={4} position={[-10, 10, 5]} />
@@ -101,7 +150,7 @@ export default function HeroSection() {
             </group>
           </Suspense>
         </Canvas>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
