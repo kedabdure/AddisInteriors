@@ -10,14 +10,17 @@ import {
 } from "react-icons/ai";
 import { galleryImages } from "@/constants";
 
-
 const ProjectGallery = () => {
-  const galleryRef = useRef()
-  const imageRef = useRef()
+  const overlayRef = useRef();
+  const imageRef = useRef();
+
   const [slideNumber, setSlideNumber] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [imagesWithDimensions, setImagesWithDimensions] = useState([]);
   const [gridRowEndValue, setGridRowEndValue] = useState(25);
+  const [isDragging, setIsDragging] = useState(false)
+
+  // Handle screen resize for responsive grid
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -35,7 +38,7 @@ const ProjectGallery = () => {
     };
   }, []);
 
-
+  // Preload images to calculate dimensions
   useEffect(() => {
     const loadImages = async () => {
       const loadedImages = await Promise.all(
@@ -59,11 +62,11 @@ const ProjectGallery = () => {
     loadImages();
   }, []);
 
-
+  // Handle clicking outside the modal
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (galleryRef.current && !imageRef.current.contains(e.target)) {
-        setOpenModal(false)
+      if (e.target.dataset.overlay) {
+        setOpenModal(false);
       }
     };
 
@@ -79,7 +82,6 @@ const ProjectGallery = () => {
       document.body.style.overflow = "auto";
     };
   }, [openModal]);
-
 
   // Open Modal
   const handleOpenModal = (index) => {
@@ -106,11 +108,9 @@ const ProjectGallery = () => {
     );
   };
 
+  // Framer Motion variants
   const itemVariants = {
-    hidden: {
-      opacity: 0,
-      y: 50,
-    },
+    hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
       y: 0,
@@ -134,11 +134,7 @@ const ProjectGallery = () => {
         damping: 20,
       },
     },
-    exit: {
-      opacity: 0,
-      scale: 0.9,
-      transition: { duration: 0.3 },
-    },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
   };
 
   const imageMotionProps = {
@@ -148,33 +144,58 @@ const ProjectGallery = () => {
     variants: modalVariants,
   };
 
-
   return (
     <div className="w-full c-space">
       <AnimatePresence>
         {openModal && (
           <motion.div
-            ref={galleryRef}
-            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-40"
+            className="fixed inset-0 flex items-center justify-center z-40"
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={modalVariants}
           >
+            {/* Overlay */}
+            <div
+              className={`absolute inset-0 bg-black ${isDragging ? 'opacity-30' : 'opacity-80'
+                } transition-opacity duration-100 z-[-1]`}
+              ref={overlayRef}
+              data-overlay="true"
+            />
+
+            {/* Close Button */}
             <AiOutlineCloseCircle
               className="absolute top-4 right-4 text-4xl text-white cursor-pointer hover:opacity-80 z-50"
               onClick={handleCloseModal}
             />
+
+            {/* Previous Button */}
             <AiOutlineLeftCircle
               className="absolute left-4 top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80 z-50"
               onClick={prevSlide}
             />
+
+            {/* Next Button */}
             <AiOutlineRightCircle
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-4xl text-white cursor-pointer hover:opacity-80 z-50"
               onClick={nextSlide}
             />
+
+            {/* Image */}
             <motion.div
               ref={imageRef}
+              drag
+              dragConstraints={{ left: -10, right: 10, top: -10, bottom: 10 }}
+              dragElastic={1}
+              onDragStart={() => {
+                setIsDragging(true)
+              }}
+              onDragEnd={(event, info) => {
+                setIsDragging(false)
+                if (info.offset.y > 100 || info.offset.y < -100) {
+                  handleCloseModal();
+                }
+              }}
               className="relative w-full max-w-screen-md h-[95vh]"
               {...imageMotionProps}
             >
@@ -189,10 +210,8 @@ const ProjectGallery = () => {
         )}
       </AnimatePresence>
 
-
       {/* Responsive Masonry Gallery */}
-      <motion.div
-        className="grid gap-4 mt-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <motion.div className="grid gap-4 mt-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {imagesWithDimensions.map((image, index) => (
           <motion.div
             key={index}
@@ -205,7 +224,7 @@ const ProjectGallery = () => {
             onClick={() => handleOpenModal(index)}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: .2 }}
+            viewport={{ once: true, amount: 0.2 }}
             variants={itemVariants}
           >
             <Image
