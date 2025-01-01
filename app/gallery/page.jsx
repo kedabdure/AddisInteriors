@@ -19,6 +19,9 @@ const ProjectGallery = () => {
   const [imagesWithDimensions, setImagesWithDimensions] = useState([]);
   const [gridRowEndValue, setGridRowEndValue] = useState(25);
   const [isDragging, setIsDragging] = useState(false)
+  const [direction, setDirection] = useState(0);
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
 
   // Handle screen resize for responsive grid
   useEffect(() => {
@@ -87,6 +90,7 @@ const ProjectGallery = () => {
   const handleOpenModal = (index) => {
     setSlideNumber(index);
     setOpenModal(true);
+    setIsFirstRender(true)
   };
 
   // Close Modal
@@ -96,6 +100,8 @@ const ProjectGallery = () => {
 
   // Previous Image
   const prevSlide = () => {
+    setIsFirstRender(false);
+    setDirection(1);
     setSlideNumber((prev) =>
       prev === 0 ? galleryImages.length - 1 : prev - 1
     );
@@ -103,6 +109,8 @@ const ProjectGallery = () => {
 
   // Next Image
   const nextSlide = () => {
+    setIsFirstRender(false);
+    setDirection(-1);
     setSlideNumber((prev) =>
       prev + 1 === galleryImages.length ? 0 : prev + 1
     );
@@ -144,6 +152,25 @@ const ProjectGallery = () => {
     variants: modalVariants,
   };
 
+  const slideVariants = {
+    initialPop: { scale: 0.9, opacity: 0, x: 0 },
+    enter: (direction) => ({
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.5 },
+    },
+    exit: (direction) => ({
+      x: direction > 0 ? "-100%" : "100%",
+      opacity: 0,
+      transition: { duration: 0.5 },
+    }),
+  };
+
   return (
     <div className="w-full c-space">
       <AnimatePresence>
@@ -183,21 +210,23 @@ const ProjectGallery = () => {
 
             {/* Image */}
             <motion.div
-              ref={imageRef}
+              key={slideNumber}
+              custom={direction}
+              variants={isFirstRender ? { initial: "initialPop", ...slideVariants } : slideVariants}
+              initial={isFirstRender ? "initialPop" : "enter"}
+              animate="center"
+              exit="exit"
+              className="relative w-full max-w-screen-md h-[95vh]"
               drag
               dragConstraints={{ left: -10, right: 10, top: -10, bottom: 10 }}
               dragElastic={1}
-              onDragStart={() => {
-                setIsDragging(true)
-              }}
+              onDragStart={() => setIsDragging(true)}
               onDragEnd={(event, info) => {
-                setIsDragging(false)
+                setIsDragging(false);
                 if (info.offset.y > 100 || info.offset.y < -100) {
                   handleCloseModal();
                 }
               }}
-              className="relative w-full max-w-screen-md h-[95vh]"
-              {...imageMotionProps}
             >
               <Image
                 src={galleryImages[slideNumber].src}
