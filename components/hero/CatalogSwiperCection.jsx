@@ -4,6 +4,8 @@ import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Button from "../Button";
+import { motion } from "framer-motion";
+import { motionImageProps, motionTextProps, motionBoxProps } from "@/lib/motionLib";
 
 
 export default function CatalogSwiperSection() {
@@ -24,23 +26,28 @@ export default function CatalogSwiperSection() {
   }
 
   return (
-    <div className="c-space">
+    <motion.div {...motionBoxProps} className="c-space">
       <div className="flex flex-col md:flex-row items-center justify-between gap-5">
         <div className="w-full md:max-w-[500px]">
-          <div className="flex justify-left sm:justify-normal gap-4 items-center mb-6 md:mb-10">
-            <div className="w-14 md:w-16 lg:w-20 h-[3px] bg-black"></div>
+          <motion.div {...motionBoxProps} className="flex justify-left sm:justify-normal gap-4 items-center mb-6 md:mb-10">
+            <div className="w-14 md:w-16 lg:w-18 h-[3px] bg-black"></div>
             <h1 className="title-text">Our Products</h1>
-          </div>
+          </motion.div>
           <div className="flex flex-col gap-3 text-center md:text-left">
-            <h2 className="text-xl md:text-left lg:text-2xl font-semibold tracking-normal text-gray-700">
+            <motion.h2 {...motionTextProps} className="text-xl md:text-left lg:text-2xl font-semibold tracking-normal text-gray-700">
               Luxury Decor to Create Comfort in Your Home
-            </h2>
-            <p className="text-gray-700 leading-relaxed">
+            </motion.h2>
+            <motion.p {...motionTextProps} className="text-gray-700 leading-relaxed">
               Our distinctive and unique designs are inspired by the latest trends in interior design and fashion.
-            </p>
+            </motion.p>
           </div>
         </div>
-        <Button href={'/gallery'} title={'Gallery'} />
+
+        <motion.div
+          {...motionBoxProps}
+        >
+          <Button href={'/gallery'} title={'Gallery'} />
+        </motion.div>
       </div>
 
       <div className="w-full mt-10">
@@ -62,6 +69,6 @@ export default function CatalogSwiperSection() {
           </SwiperSlide>
         </Swiper>
       </div>
-    </div>
+    </motion.div>
   )
 }
