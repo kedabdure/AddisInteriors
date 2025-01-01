@@ -54,7 +54,7 @@ export default function About() {
               Crafting Timeless Interior Designs with Purpose
             </motion.h2>
             <motion.p
-              className="mt-4 text-lg leading-relaxed text-gray-700 lg:text-xl lg:w-2/3 mx-auto"
+              className="mt-4 text-md leading-relaxed text-gray-700 lg:text-xl lg:w-2/3 mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 1 }}
