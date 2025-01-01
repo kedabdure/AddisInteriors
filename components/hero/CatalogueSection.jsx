@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { TbArrowNarrowRight } from "react-icons/tb";
 import { motion } from "framer-motion"
-import { motionImageProps, motionTextProps, motionBoxProps } from "@/lib/motionLib";
+import { motionBoxProps } from "@/lib/motionLib";
 
 
 import { catalogs } from "@/constants";
@@ -10,13 +10,13 @@ import { catalogs } from "@/constants";
 export default function CatalogueSection() {
 
   return (
-    <motion.div {...motionBoxProps} className="grid gap-8 divide-gray-300 lg:divide-x lg:gap-0 lg:grid-cols-4 md:grid-cols-2 c-space md:p-0">
+    <motion.div className="grid gap-8 divide-gray-300 lg:divide-x lg:gap-0 lg:grid-cols-4 md:grid-cols-2 c-space md:px-0">
       {catalogs.map((item) => (
-        <div key={item.id} className="relative overflow-hidden group rounded-smw">
+        <motion.div {...motionBoxProps} key={item.id} className="relative overflow-hidden group rounded-smw">
           <div>
             <Image src={item.image} width={380} height={100} alt="" className="w-full" />
           </div>
-          <motion.div {...motionTextProps} className="absolute top-0 p-8 m-12 bg-white bg-opacity-60 backdrop-blur rounded-md">
+          <motion.div {...motionBoxProps} className="absolute top-0 p-8 m-12 bg-white bg-opacity-60 backdrop-blur rounded-md">
             <div className="flex justify-between pb-4 ">
               <p className="text-sm">{item.catagory}</p>
               <span className="text-sm ">{item.id}</span>
@@ -33,7 +33,7 @@ export default function CatalogueSection() {
             </span>
 
           </div>
-        </div>
+        </motion.div>
       ))}
     </motion.div>
   )

@@ -1,36 +1,22 @@
 "use client"
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Button from '@/components/Button';
 import Teams from '@/components/hero/Teams';
-
-// Motion variants for animations on scroll
-const sectionVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 1, ease: 'easeOut' } },
-};
-
-const imageVariants = {
-  hover: { scale: 1.03, transition: { duration: 0.3 } },
-};
+import { motion } from 'framer-motion';
+import { motionTextProps, motionImageProps, motionBoxProps } from '@/lib/motionLib';
 
 export default function About() {
   return (
     <motion.div
       className="bg-gray-100 text-gray-900"
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
     >
       {/* Hero Section */}
       <div className="relative bg-[url('/image/about.jpg')] bg-center bg-cover mt-16">
         <div className="absolute inset-0 bg-black/50"></div>
         <motion.h1
           className="relative container py-32 text-4xl font-extrabold tracking-wide text-center text-white md:py-64 md:text-6xl"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 1 }}
+          {...motionTextProps}
         >
           About Us
         </motion.h1>
@@ -39,24 +25,18 @@ export default function About() {
       {/* About Section */}
       <motion.div
         className="container py-12 lg:py-20"
-        initial="hidden"
-        whileInView="visible"
-        variants={sectionVariants}
+        {...motionBoxProps}
       >
         <div className="text-center space-y-6 lg:space-y-8">
           <motion.h2
             className="text-2xl md:text-4xl font-extrabold tracking-wide text-gray-900 lg:text-5xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
+            {...motionTextProps}
           >
             Crafting Timeless Interior Designs with Purpose
           </motion.h2>
           <motion.p
             className="mt-4 text-md leading-relaxed text-gray-700 lg:text-xl lg:w-2/3 mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 1 }}
+            {...motionTextProps}
           >
             At Addis Interior Design, we transform spaces into timeless works of art. Whether it’s your home, office, or commercial property, our expert team blends functionality with creativity to craft interiors that inspire and captivate. Experience bespoke designs tailored to your unique needs.
           </motion.p>
@@ -66,8 +46,7 @@ export default function About() {
           {/* Image Section */}
           <motion.div
             className="relative overflow-hidden rounded-xl shadow-lg w-full lg:w-1/2"
-            whileHover="hover"
-            variants={imageVariants}
+            {...motionImageProps}
           >
             <Image
               src="/image/gallery1123.jpg"
@@ -79,33 +58,22 @@ export default function About() {
           </motion.div>
 
           {/* Text Section */}
-          <motion.div
-            className="flex flex-col justify-center w-full lg:w-1/2"
-            initial="hidden"
-            whileInView="visible"
-            variants={sectionVariants}
-          >
+          <motion.div className="flex flex-col justify-center w-full lg:w-1/2">
             <motion.h3
-              className="text-2xl font-semibold text-gray-900 lg:text-3xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 1 }}
+              className="text-2xl font-bold text-gray-900 lg:text-4xl"
+              {...motionTextProps}
             >
               Transforming Spaces with Elegance
             </motion.h3>
             <motion.p
               className="mt-3 text-xl font-medium text-gray-600 lg:text-2xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 1 }}
+              {...motionTextProps}
             >
               Designing Interiors That Inspire
             </motion.p>
             <motion.p
               className="mt-8 text-lg leading-relaxed text-gray-800"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.9, duration: 1 }}
+              {...motionTextProps}
             >
               Addis Interior Design Company specializes in crafting sophisticated and functional spaces that reflect your personality and needs. With a team of experienced designers, we turn your vision into reality using innovative ideas and meticulous attention to detail.
               <br />
@@ -114,9 +82,9 @@ export default function About() {
                 Elevate your home or workspace with our bespoke designs and let us create the ambiance you've always dreamed of.
               </span>
             </motion.p>
-            <div className="mt-12">
+            <motion.div {...motionBoxProps} className="mt-12">
               <Button href={'/contact'} title={'Contact Us'} />
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </motion.div>
@@ -124,9 +92,7 @@ export default function About() {
       {/* Teams Section */}
       <motion.div
         className="container py-16"
-        initial="hidden"
-        whileInView="visible"
-        variants={sectionVariants}
+        {...motionBoxProps}
       >
         <Teams />
       </motion.div>

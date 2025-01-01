@@ -21,9 +21,13 @@ export default function AboutComponent() {
           />
         </motion.div>
 
-        <div className="w-full md:w-1/2 flex flex-col gap-4">
+        <div className="w-full md:w-1/2 flex flex-col gap-0">
           <motion.div {...motionTextProps} className="">
-            <h2 className="text-2xl font-semibold text-gray-800 lg:text-[2.5rem]" style={{lineHeight: '3rem'}}>Designing Your Dream With Brilliance</h2>
+            <h2
+              className="text-2xl text-center md:text-left font-semibold text-gray-800 lg:text-[2.5rem] leading-[2rem] md:leading-[3rem]"
+            >
+              Designing Your Dream With Brilliance
+            </h2>
           </motion.div>
 
           <div className="my-8 flex flex-col gap-4 justify-start text-left md:items-start">
@@ -36,7 +40,7 @@ export default function AboutComponent() {
             </motion.div>
           </div>
 
-          <motion.div {...motionBoxProps} className="mx-auto md:mx-0">
+          <motion.div {...motionBoxProps} className="mx-auto md:mx-0 mt-8">
             <Button href={'/contact'} title={'Contact Us'} />
           </motion.div>
         </div>
