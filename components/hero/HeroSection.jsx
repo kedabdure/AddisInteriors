@@ -53,16 +53,20 @@ export default function HeroSection() {
       transition: {
         delay: 0.3,
         duration: 1,
-        ease: 'easeOut'
       }
     }
   }
 
-  // create a props for the motion.div
   const motionBoxProps = {
     initial: "hidden",
     whileInView: "visible",
     variants: sectionVariants
+  }
+
+  const motionTextProps = {
+    initial: "hidden",
+    whileInView: "visible",
+    variants: textVariants
   }
 
   return (
@@ -74,38 +78,61 @@ export default function HeroSection() {
       {/* Left Content: Navigation + Hero Text */}
       <div className="w-full h-full flex flex-col sm lg:w-1/2 text-center justify-center lg:text-left mt-28 lg:mt-0">
         <div className="w-full h-full flex flex-col gap-12 lg:gap-4 justify-center">
-          <motion.div {...motionBoxProps}>
-            <p className="text-gray-200 tracking-widest font-thin text-sm md:text-lg mb-6 lg:mb-6">ADDISINTERIOR</p>
-            <h1 className="text-gray-100 text-3xl md:text-4xl lg:text-5xl max-w-[90%] mx-auto sm:mx-0 font-semibold mb-4 lg:mb-6" style={{ lineHeight: "1.4" }}>
+          {/* Separate animations for text elements */}
+          <motion.div>
+            <motion.p
+              className="text-gray-200 tracking-widest font-thin text-sm md:text-lg mb-6 lg:mb-6"
+              {...motionTextProps}
+            >
+              ADDISINTERIOR
+            </motion.p>
+            <motion.h1
+              className="text-gray-100 text-3xl md:text-4xl lg:text-5xl max-w-[90%] mx-auto sm:mx-0 font-semibold mb-4 lg:mb-6"
+              style={{ lineHeight: "1.4" }}
+              {...motionTextProps}
+            >
               Interior Design Expert In Ethiopia
-            </h1>
-            <p className="text-gray-300 max-w-[80%] mx-auto lg:mx-0 mb-5 lg:mb-12 text-xs lg:text-1xl">
+            </motion.h1>
+            <motion.p
+              className="text-gray-300 max-w-[80%] mx-auto lg:mx-0 mb-5 lg:mb-12 text-xs lg:text-1xl"
+              {...motionTextProps}
+            >
               Discover exceptional interior design.
               Transform your home with our stylish and functional solutions.
-            </p>
+            </motion.p>
           </motion.div>
 
+          {/* Separate animations for buttons */}
           <motion.div
             className="flex flex-col gap-4 md:gap-4 md:flex-row justify-center lg:justify-start"
             {...motionBoxProps}
           >
-            <Link
-              href="/contact"
-              className="inline-flex mx-auto md:mx-0 max-w-[170px] items-center px-5 py-2 md:px-6 md:py-3 text-sm font-medium bg-white text-black border border-transparent rounded-sm shadow-md transition-transform duration-300 ease-in-out hover:scale-105"
+            <motion.div
+              {...motionBoxProps}
             >
-              Contact Us
-              <TbArrowUpRight className="w-5 h-5 ml-2" />
-            </Link>
-            <Link
-              href="/projects"
-              className="inline-flex mx-auto md:mx-0 max-w-[170px] items-center px-5 py-2 md:px-6 md:py-3 text-sm font-medium text-white border border-white rounded-sm shadow-md transition-transform duration-300 ease-in-out hover:bg-gray-950 hover:text-white hover:scale-105"
+              <Link
+                href="/contact"
+                className="inline-flex mx-auto md:mx-0 max-w-[170px] items-center px-5 py-2 md:px-6 md:py-3 text-sm font-medium bg-white text-black border border-transparent rounded-sm shadow-md transition-transform duration-300 ease-in-out hover:scale-105"
+              >
+                Contact Us
+                <TbArrowUpRight className="w-5 h-5 ml-2" />
+              </Link>
+            </motion.div>
+            <motion.div
+              {...motionBoxProps}
             >
-              Our Works
-              <TbArrowUpRight className="w-5 h-5 ml-2" />
-            </Link>
+              <Link
+                href="/projects"
+                className="inline-flex mx-auto md:mx-0 max-w-[170px] items-center px-5 py-2 md:px-6 md:py-3 text-sm font-medium text-white border border-white rounded-sm shadow-md transition-transform duration-300 ease-in-out hover:bg-gray-950 hover:text-white hover:scale-105"
+              >
+                Our Works
+                <TbArrowUpRight className="w-5 h-5 ml-2" />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </div>
+
 
       {/* Right Content: 3D Model */}
       <motion.div
