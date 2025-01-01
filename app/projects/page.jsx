@@ -1,22 +1,45 @@
+"use client"
+
 import Image from "next/image";
 import { projects } from "@/constants";
 import Button from "@/components/Button";
+import { motion } from "framer-motion";
 
 export default function Projects() {
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: 'easeOut'
+      }
+    },
+    exit: { opacity: 0, y: 50 }
+  }
+
   return (
     <div>
       {/* Hero Section */}
       <div className="bg-[url('/image/backgroundproject.jpg')] bg-center bg-cover">
-        <h1 className="container mx-auto px-4 py-48 mt-12 text-center text-4xl font-bold tracking-widest text-white sm:text-5xl md:text-6xl lg:py-72">
+        <motion.h1 className="container mx-auto px-4 py-48 mt-12 text-center text-4xl font-extrabold tracking-widest text-white sm:text-5xl md:text-6xl lg:py-72"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 1 }}
+        >
           Our Projects
-        </h1>
+        </motion.h1>
       </div>
 
       {/* Project Showcase */}
       <div className="c-space">
-        <div className="container mx-auto grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3">
+        <div className="mx-auto grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {projects.map((project) => (
-            <div
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={sectionVariants}
               key={project.id}
               className="relative overflow-hidden rounded-xl group shadow-md hover:shadow-lg transition-shadow duration-300"
             >
@@ -38,17 +61,22 @@ export default function Projects() {
                 </h2>
                 <p className="text-sm sm:text-base">{project.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Call to Action */}
-        <div className="relative bg-gradient-to-r from-purple-200/30 via-pink-100/20 to-indigo-300/30 backdrop-blur-xl text-center c-space mt-8 md:mt-16 flex flex-col gap-5 md:gap-8 rounded-md shadow-lg">
+        <motion.div
+          className="relative bg-gradient-to-r from-purple-200/30 via-pink-100/20 to-indigo-300/30 backdrop-blur-xl text-center c-space mt-8 md:mt-16 flex flex-col gap-5 md:gap-8 rounded-md shadow-lg"
+          initial="hidden"
+          whileInView="visible"
+          variants={sectionVariants}
+        >
           <h2 className="text-xl font-semibold md:text-4xl text-gray-900">
             Want to know more about our projects?
           </h2>
           <Button href={'/contact'} title={'Contact Us'} />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
