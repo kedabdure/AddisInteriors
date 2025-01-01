@@ -46,7 +46,7 @@ export default function About() {
         >
           <div className="text-center space-y-6 lg:space-y-8">
             <motion.h2
-              className="text-3xl md:text-4xl font-extrabold tracking-wide text-gray-900 lg:text-5xl"
+              className="text-2xl md:text-4xl font-extrabold tracking-wide text-gray-900 lg:text-5xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 1 }}
