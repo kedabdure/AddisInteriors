@@ -6,6 +6,8 @@ import { PerspectiveCamera, Sphere, OrbitControls, useTexture } from "@react-thr
 import Loading from "../Loading";
 import { FaVrCardboard } from "react-icons/fa";
 import Image from "next/image";
+import { motion } from "framer-motion"
+import { motionBoxProps, motionImageProps, motionTextProps } from "@/lib/motionLib";
 
 // Assets
 const expand = "/icons/expand.svg";
@@ -63,17 +65,19 @@ export default function Panorama() {
     >
       <div className="w-full text-center md:text-center mb-16">
         <div className="flex flex-col md:flex-col justify-left items-center gap-3 mb-4">
-          <FaVrCardboard className="text-6xl text-black" />
-          <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-gray-800">
+          <motion.div {...motionBoxProps}>
+            <FaVrCardboard className="text-6xl text-black" />
+          </motion.div>
+          <motion.h1 {...motionTextProps} className="text-3xl md:text-4xl lg:text-4xl font-bold text-gray-800">
             Explore Our Projects in 360° VR
-          </h1>
+          </motion.h1>
         </div>
-        <h2 className="text-md md:text-lg font-medium text-gray-700">
+        <motion.h2 {...motionTextProps} className="text-md md:text-lg font-medium text-gray-700">
           Immerse yourself in stunning panoramic VR views of our completed works.
-        </h2>
+        </motion.h2>
       </div>
 
-      <div
+      <motion.div
         className={`transition-all duration-500 ease-in-out ${isExpanded
           ? "fixed inset-0 z-50 w-screen h-screen"
           : "relative mx-auto w-full h-[600px] md:h-screen"
@@ -125,13 +129,13 @@ export default function Panorama() {
         </div>
         <div className="absolute top-[49%] right-[3%] z-10">
           <button
-            onClick={handlePrev}
+            onClick={handleNext}
             className=" w-12 h-12 flex items-center justify-center bg-black bg-opacity-20 rounded-full hover:bg-opacity-80 transition"
           >
             <Image src={right} alt="next" width={28} height={28} />
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

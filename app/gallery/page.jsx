@@ -145,13 +145,6 @@ const ProjectGallery = () => {
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.3 } },
   };
 
-  const imageMotionProps = {
-    initial: "hidden",
-    animate: "visible",
-    exit: "exit",
-    variants: modalVariants,
-  };
-
   const slideVariants = {
     initialPop: { scale: 0.9, opacity: 0, x: 0 },
     enter: (direction) => ({
