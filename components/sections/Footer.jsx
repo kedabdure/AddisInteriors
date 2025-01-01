@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { motionBoxProps } from "@/lib/motionLib";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState("");
 
   return (
-    <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-950 text-gray-300">
+    <motion.footer {...motionBoxProps} className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-950 text-gray-300">
       <div className="container mx-auto grid gap-8 py-14 px-6 lg:grid-cols-4">
         {/* Newsletter Section */}
         <div className="min:w-[350px] text-center lg:text-left lg:max-w-md">
@@ -101,6 +103,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

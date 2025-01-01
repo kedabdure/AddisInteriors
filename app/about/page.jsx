@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Button from '@/components/Button';
-import Teams from '@/components/hero/Teams';
+import Teams from '@/components/sections/Teams';
 import { motion } from 'framer-motion';
 import { motionTextProps, motionImageProps, motionBoxProps } from '@/lib/motionLib';
 

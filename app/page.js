@@ -1,9 +1,9 @@
-import AboutComponent from "@/components/hero/AboutComponent";
-import CatalogSwiperSection from "@/components/hero/CatalogSwiperCection";
-import CatalogueSection from "@/components/hero/CatalogueSection";
-import ContactSection from "@/components/hero/ContactSection";
-import HeroSection from "@/components/hero/HeroSection";
-import OurServices from "@/components/hero/OurServices";
+import AboutComponent from "@/components/sections/AboutComponent";
+import CatalogSwiperSection from "@/components/sections/CatalogSwiperCection";
+import CatalogueSection from "@/components/sections/CatalogueSection";
+import ContactSection from "@/components/sections/ContactSection";
+import HeroSection from "@/components/sections/HeroSection";
+import OurServices from "@/components/sections/OurServices";
 import Panorama from "@/components/3D/Panorama";
 
 

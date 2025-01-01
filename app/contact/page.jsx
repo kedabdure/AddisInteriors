@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import { sendEmail } from "@/lib/sendEmail";
 import LocationMap from "@/lib/LocationMap";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { motionBoxProps, motionTextProps } from "@/lib/motionLib";
 
 const initialValues = {
   firstName: "",
@@ -109,7 +111,7 @@ const Contact = () => {
     <div className="relative w-full min-h-screen">
       <div className="bg-[url('/image/about.jpg')] bg-cover bg-center h-[65vh] flex items-center justify-center text-white relative mt-16">
         <div className="absolute top-0 left-0 right-0 bg-gradient-to-t from-black/50 to-black/20 h-full w-full"></div>
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold z-10">Contact Us</h1>
+        <motion.h1 {...motionTextProps} className="text-3xl md:text-4xl lg:text-5xl font-bold z-10">Contact Us</motion.h1>
       </div>
 
       <div className="c-space flex flex-col md:flex-row gap-20 md:gap-12">
@@ -119,7 +121,7 @@ const Contact = () => {
           </div> */}
 
           <div className="flex flex-col gap-8">
-            <div className="w-full flex items-center gap-6 bg-zinc-50 shadow-sm p-5 sm:flex-row sm:items-center sm:gap-4 lg:p-7">
+            <motion.div {...motionBoxProps} className="w-full flex items-center gap-6 bg-zinc-50 shadow-sm p-5 sm:flex-row sm:items-center sm:gap-4 lg:p-7">
               <div className="w-14 h-14 bg-blue-100 p-3 md:p-4 rounded-full flex items-center justify-center">
                 <Image width={24} height={24} src="/icons/phone.svg" alt="Phone Icon" />
               </div>
@@ -131,9 +133,9 @@ const Contact = () => {
                   +251 911 111 111
                 </p>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="w-full flex items-center gap-6 bg-zinc-50 shadow-sm p-5 sm:flex-row sm:items-center sm:gap-4 lg:p-7">
+            <motion.div {...motionBoxProps} className="w-full flex items-center gap-6 bg-zinc-50 shadow-sm p-5 sm:flex-row sm:items-center sm:gap-4 lg:p-7">
               <div className="w-14 h-14 bg-blue-100 p-3 md:p-4 rounded-full flex items-center justify-center">
                 <Image width={26} height={26} src="/icons/email.svg" alt="Phone Icon" />
               </div>
@@ -145,9 +147,9 @@ const Contact = () => {
                   contact@addisinterior.com
                 </p>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="w-full flex items-center gap-6 bg-zinc-50 shadow-sm p-5 sm:flex-row sm:items-center sm:gap-4 lg:p-7">
+            <motion.div {...motionBoxProps} className="w-full flex items-center gap-6 bg-zinc-50 shadow-sm p-5 sm:flex-row sm:items-center sm:gap-4 lg:p-7">
               <div className="w-14 h-14 bg-blue-100 p-3 md:p-4 rounded-full flex items-center justify-center">
                 <Image width={24} height={24} src="/icons/location.svg" alt="Phone Icon" />
               </div>
@@ -159,7 +161,7 @@ const Contact = () => {
                   Addis Ababa, Ethiopia
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -169,7 +171,7 @@ const Contact = () => {
           </h2> */}
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div>
+              <motion.div {...motionBoxProps}>
                 <label className="block text-sm md:text-[.9rem] font-medium mb-2">
                   First Name*
                 </label>
@@ -185,9 +187,9 @@ const Contact = () => {
                     {formErrors.firstName}
                   </p>
                 )}
-              </div>
+              </motion.div>
 
-              <div>
+              <motion.div {...motionBoxProps}>
                 <label className="block text-sm md:text-[.9rem] font-medium mb-2">
                   Last Name*
                 </label>
@@ -203,11 +205,11 @@ const Contact = () => {
                     {formErrors.lastName}
                   </p>
                 )}
-              </div>
+              </motion.div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div>
+              <motion.div {...motionBoxProps}>
                 <label className="block text-sm md:text-[.9rem] font-medium mb-2">
                   Business Email*
                 </label>
@@ -221,9 +223,9 @@ const Contact = () => {
                 {formErrors.email && (
                   <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
                 )}
-              </div>
+              </motion.div>
 
-              <div>
+              <motion.div {...motionBoxProps}>
                 <label className="block text-sm md:text-[.9rem] font-medium mb-2">
                   Phone Number*
                 </label>
@@ -237,10 +239,10 @@ const Contact = () => {
                 {formErrors.phone && (
                   <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>
                 )}
-              </div>
+              </motion.div>
             </div>
 
-            <div>
+            <motion.div {...motionBoxProps}>
               <label className="block text-sm md:text-[.9rem] font-medium mb-2">
                 Your message*
               </label>
@@ -254,9 +256,9 @@ const Contact = () => {
               {formErrors.message && (
                 <p className="text-red-500 text-sm mt-1">{formErrors.message}</p>
               )}
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div {...motionBoxProps}>
               <button
                 type="submit"
                 className="w-full bg-gray-900 text-white py-3 rounded-md hover:bg-gray-700 mt-6"
@@ -264,19 +266,19 @@ const Contact = () => {
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
               </button>
-            </div>
+            </motion.div>
           </form>
         </div>
       </div>
 
       <div className="c-space bg-zinc-50">
         <div className="flex flex-col gap-3 text-center">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">Find Us On Google Map</h1>
-          <p>this is our office location you can visit us when ever you want</p>
+          <motion.h1 {...motionTextProps} className="text-2xl md:text-3xl lg:text-4xl font-bold">Find Us On Google Map</motion.h1>
+          <motion.p {...motionTextProps} >this is our office location you can visit us when ever you want</motion.p>
         </div>
-        <div className="bg-white shadow-lg w-full h-[60vh] md:h-[70vh] lg:h-[75vh] mt-10">
+        <motion.div {...motionBoxProps} className="bg-white shadow-lg w-full h-[60vh] md:h-[70vh] lg:h-[75vh] mt-10">
           <LocationMap />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
