@@ -113,3 +113,38 @@ export const galleryImages = [
   { id: 14, src: "/image/gallery14.jpg", alt: "Gallery 14" },
   { id: 15, src: "/image/gallery15.jpg", alt: "Gallery 15" },
 ];
+
+export const clientReviews = [
+  {
+    id: 1,
+    name: 'Tadesse Birru',
+    position: 'Marketing Manager at EthioAgro',
+    img: '/image/testimonials/men1.jpg',
+    review:
+      'Working with Abdurehim was an incredible experience. He took our outdated website and turned it into a sleek, user-friendly platform that perfectly aligns with our brand. His dedication and attention to detail are second to none. Highly recommended for web projects!',
+  },
+  {
+    id: 2,
+    name: 'Ahmed Yusuf',
+    position: 'Founder of TechPoint Hub',
+    img: '/image/testimonials/men2.jpg',
+    review:
+      'Abdurehim’s skill set is remarkable. He built a powerful and scalable solution for our e-commerce platform, and we’ve seen a significant boost in online engagement and sales. A highly professional and reliable developer!',
+  },
+  {
+    id: 3,
+    name: 'Samuel Kebede',
+    position: 'Project Lead at Addis Innovators',
+    img: '/image/testimonials/men4.jpg',
+    review:
+      'It was a pleasure working with Abdurehim. He took on our complex project requirements and delivered an intuitive, functional website that exceeded expectations. His ability to solve challenges efficiently is outstanding.',
+  },
+  {
+    id: 4,
+    name: 'James Anderson',
+    position: 'CEO of BrightFuture Enterprises',
+    img: '/image/testimonials/men5.jpeg',
+    review:
+      'Abdurehim truly understands the essence of modern web development. He created a platform that not only met but exceeded our vision. His expertise in both frontend and backend development is exceptional. We couldn’t be happier with the results!',
+  },
+];

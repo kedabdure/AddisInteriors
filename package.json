@@ -26,7 +26,7 @@
     "react-phone-number-input": "^3.4.10",
     "react-responsive": "^10.0.0",
     "sweetalert2": "^11.14.0",
-    "swiper": "^10.2.0",
+    "swiper": "^10.3.1",
     "three": "^0.168.0"
   },
   "devDependencies": {

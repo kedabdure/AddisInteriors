@@ -5,6 +5,7 @@ import ContactSection from "@/components/sections/ContactSection";
 import HeroSection from "@/components/sections/HeroSection";
 import OurServices from "@/components/sections/OurServices";
 import Panorama from "@/components/3D/Panorama";
+import Testimonials from "@/components/sections/Testimonials"
 
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <CatalogSwiperSection />
       <ContactSection />
       <Panorama />
+      <Testimonials />
     </>
   );
 }
