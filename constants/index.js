@@ -121,7 +121,7 @@ export const clientReviews = [
     position: 'Marketing Manager at EthioAgro',
     img: '/image/testimonials/men1.jpg',
     review:
-      'Working with Abdurehim was an incredible experience. He took our outdated website and turned it into a sleek, user-friendly platform that perfectly aligns with our brand. His dedication and attention to detail are second to none. Highly recommended for web projects!',
+      'Working with Abdurehim was an incredible experience. He took our outdated website and turned it into a sleek, user-friendly platform that perfectly aligns with our brand. His dedication and attention to detail are second to none.',
   },
   {
     id: 2,
@@ -145,6 +145,6 @@ export const clientReviews = [
     position: 'CEO of BrightFuture Enterprises',
     img: '/image/testimonials/men5.jpeg',
     review:
-      'Abdurehim truly understands the essence of modern web development. He created a platform that not only met but exceeded our vision. His expertise in both frontend and backend development is exceptional. We couldn’t be happier with the results!',
+      'Abdurehim truly understands the essence of modern web development. He created a platform that not only met but exceeded our vision. His expertise in both frontend and backend development is exceptional.',
   },
 ];
