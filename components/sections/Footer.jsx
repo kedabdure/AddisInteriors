@@ -23,7 +23,7 @@ export default function Footer() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <button className="absolute top-2 right-2 h-10 px-4 text-sm text-white bg-zinc-500 rounded-full hover:bg-zinc-700">
+            <button className="absolute top-2 right-2 h-10 px-4 text-sm text-black bg-zinc-100 rounded-full hover:bg-zinc-300 transition duration-300">
               Subscribe
             </button>
           </div>

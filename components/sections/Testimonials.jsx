@@ -6,6 +6,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { motion } from "framer-motion";
+import { motionTextProps, motionImageProps } from "@/lib/motionLib";
 
 import { Autoplay } from "swiper/modules";
 import { clientReviews } from "@/constants";
@@ -25,37 +27,53 @@ const Testimonials = () => {
     <section className="c-space min-h-screen" id="testimonials">
       <div className="relative flex flex-col md:flex-row gap-8">
         <div className="hidden lg:flex flex-col gap-5 md:w-1/2">
-          <div className="relative hidden lg:flex lg:w-[400px] xl:w-[500px] lg:h-[460px] overflow-hidden">
+          <motion.div {...motionImageProps} className="relative hidden lg:flex lg:w-[400px] xl:w-[500px] lg:h-[460px] overflow-hidden">
             <Image
               src="/image/gallery1.jpg"
               alt="Gallery Image"
               layout="fill"
               objectFit="cover"
             />
-          </div>
-          {/* Slider Controls */}
-          <div className="hidden lg:flex items-center lg:gap-2 xl:gap-5 mt-4">
-            <button
-              className="arrow-btn lg:px-2 xl:px-3 lg:py-1 xl:py-2 text-xl bg-gray-200 hover:bg-gray-300 transition"
+          </motion.div>
+          <div className="hidden lg:flex items-center justify-left gap-5 mt-8">
+            <motion.button
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{
+                type: "tween",
+                ease: [0.42, 0, 0.58, 1],
+                delay: 0.5,
+                duration: .5,
+              }}
+              className="arrow-btn flex items-center justify-center w-12 h-12 bg-gray-200 hover:bg-gray-300 transition"
               onClick={handlePrev}
             >
               ←
-            </button>
-            <button
-              className="arrow-btn lg:px-2 xl:px-3 lg:py-1 xl:py-2 text-xl bg-gray-200 hover:bg-gray-300 transition"
+            </motion.button>
+            <motion.button
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{
+                type: "tween",
+                ease: [0.42, 0, 0.58, 1],
+                delay: 0.5,
+                duration: .5,
+              }}
+              className="arrow-btn flex items-center justify-center w-12 h-12 bg-gray-200 hover:bg-gray-300 transition"
               onClick={handleNext}
             >
               →
-            </button>
+            </motion.button>
           </div>
+
         </div>
 
         {/* Right Section */}
         <div className="w-full">
           <div className="relative w-full mb-8 md:mb-12">
-            <h1 className="w-[90%] mx-auto lg:mx-0 lg:w-[90%] text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-center lg:text-left lg:leading-loose font-bold text-gray-800">
+            <motion.h1 {...motionTextProps} className="w-[90%] mx-auto lg:mx-0 lg:w-[90%] text-3xl md:text-4xl lg:text-5xl xl:text-5xl text-center lg:text-left lg:leading-loose font-bold text-gray-800">
               What Our Customers Say About Us
-            </h1>
+            </motion.h1>
           </div>
 
           {/* Overlapping Slider */}
@@ -124,18 +142,24 @@ const Testimonials = () => {
               </Swiper>
               {/* Slider Controls */}
               <div className="flex lg:hidden mx-auto items-center justify-center gap-5 mt-8">
-                <button
-                  className="arrow-btn px-3 py-2 text-xl bg-gray-200 hover:bg-gray-300 transition"
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1, duration: 0.5 }}
+                  className="arrow-btn flex items-center justify-center w-12 h-12 bg-gray-200 hover:bg-gray-300 rounded-full transition"
                   onClick={handlePrev}
                 >
                   ←
-                </button>
-                <button
-                  className="arrow-btn px-3 py-2 text-xl bg-gray-200 hover:bg-gray-300 transition"
+                </motion.button>
+                <motion.button
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1, duration: 0.5 }}
+                  className="arrow-btn flex items-center justify-center w-12 h-12 bg-gray-200 hover:bg-gray-300 rounded-full transition"
                   onClick={handleNext}
                 >
                   →
-                </button>
+                </motion.button>
               </div>
 
             </div>
