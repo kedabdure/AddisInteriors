@@ -24,7 +24,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="c-space min-h-screen" id="testimonials">
+    <section className="c-space" id="testimonials">
       <div className="relative flex flex-col md:flex-row gap-8">
         <div className="hidden lg:flex flex-col gap-5 md:w-1/2">
           <motion.div {...motionImageProps} className="relative hidden lg:flex lg:w-[400px] xl:w-[500px] lg:h-[460px] overflow-hidden">
@@ -145,8 +145,13 @@ const Testimonials = () => {
                 <motion.button
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1, duration: 0.5 }}
-                  className="arrow-btn flex items-center justify-center w-12 h-12 bg-gray-200 hover:bg-gray-300 rounded-full transition"
+                  transition={{
+                    type: "tween",
+                    ease: [0.42, 0, 0.58, 1],
+                    delay: 0.5,
+                    duration: .5,
+                  }}
+                  className="arrow-btn flex items-center justify-center w-12 h-12 bg-gray-200 hover:bg-gray-300 transition"
                   onClick={handlePrev}
                 >
                   ←
@@ -154,8 +159,13 @@ const Testimonials = () => {
                 <motion.button
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1, duration: 0.5 }}
-                  className="arrow-btn flex items-center justify-center w-12 h-12 bg-gray-200 hover:bg-gray-300 rounded-full transition"
+                  transition={{
+                    type: "tween",
+                    ease: [0.42, 0, 0.58, 1],
+                    delay: 0.5,
+                    duration: .5,
+                  }}
+                  className="arrow-btn flex items-center justify-center w-12 h-12 bg-gray-200 hover:bg-gray-300 transition"
                   onClick={handleNext}
                 >
                   →
