@@ -36,7 +36,7 @@ const Testimonials = () => {
             />
           </motion.div>
           <div className="hidden lg:flex items-center justify-left gap-5 mt-8">
-            <motion.button
+            <button
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{
@@ -49,8 +49,8 @@ const Testimonials = () => {
               onClick={handlePrev}
             >
               ←
-            </motion.button>
-            <motion.button
+            </button>
+            <button
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{
@@ -63,7 +63,7 @@ const Testimonials = () => {
               onClick={handleNext}
             >
               →
-            </motion.button>
+            </button>
           </div>
 
         </div>
@@ -142,7 +142,7 @@ const Testimonials = () => {
               </Swiper>
               {/* Slider Controls */}
               <div className="flex lg:hidden mx-auto items-center justify-center gap-5 mt-8">
-                <motion.button
+                <button
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{
@@ -155,8 +155,8 @@ const Testimonials = () => {
                   onClick={handlePrev}
                 >
                   ←
-                </motion.button>
-                <motion.button
+                </button>
+                <button
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{
@@ -169,7 +169,7 @@ const Testimonials = () => {
                   onClick={handleNext}
                 >
                   →
-                </motion.button>
+                </button>
               </div>
 
             </div>

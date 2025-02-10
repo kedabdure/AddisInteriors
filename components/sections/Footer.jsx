@@ -102,6 +102,10 @@ export default function Footer() {
             </Link>
           </div>
         </div>
+
+        <div className="mt-3 text-sm text-center">
+          Powered by <Link className="text-purple-400 hover:text-purple-200 transition duration-300" href={'http://t.me/kedabdure'} >Abdurehim Kedir</Link>
+        </div>
       </div>
     </motion.footer>
   );
